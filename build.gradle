@@ -47,11 +47,9 @@ dependencies {
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api:3.1.0"
 
-
     testImplementation ('org.springframework.boot:spring-boot-starter-test')
     testImplementation 'jakarta.persistence:jakarta.persistence-api'
     testImplementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-
 }
 
 //querydsl 세팅 시
