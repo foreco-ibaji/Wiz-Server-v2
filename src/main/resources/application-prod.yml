@@ -1,0 +1,28 @@
+#application-prod.yml
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://foreco-db.cejc8gcofa3z.ap-northeast-2.rds.amazonaws.com:3306/foreco_server_rds?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: admin
+    password: mysqladmin
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+        SQL: debug
