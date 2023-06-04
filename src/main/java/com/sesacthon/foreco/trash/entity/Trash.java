@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * 세부 품목(쓰레기 이름)
+ * 세부품목(쓰레기 이름)
  */
 @Entity
 public class Trash {

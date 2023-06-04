@@ -3,6 +3,7 @@ package com.sesacthon.foreco.trash.entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
 @Getter
 @RequiredArgsConstructor
 public enum DisposalType {

@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 
 /**
  * 지역
+ * - 시, 구, 동
+ * - 배출 요일
+ * - 배출 날짜
  */
 @Entity
 public class Region {

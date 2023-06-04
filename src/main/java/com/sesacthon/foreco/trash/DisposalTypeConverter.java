@@ -14,4 +14,5 @@ public class DisposalTypeConverter implements AttributeConverter<DisposalType, I
   public DisposalType convertToEntityAttribute(Integer dbData) {
     return null;
   }
+
 }

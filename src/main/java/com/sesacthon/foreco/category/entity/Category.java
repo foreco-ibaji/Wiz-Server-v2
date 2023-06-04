@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 /**
- * 쓰레기 품목
+ * 쓰레기 품목(카테고리)
  */
 @Entity
 public class Category {
