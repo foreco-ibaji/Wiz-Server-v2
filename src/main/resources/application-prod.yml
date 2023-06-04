@@ -1,0 +1,39 @@
+#application-prod.yml
+
+aws:
+  paramstore:
+    enabled: true
+    prefix: /config
+    name: mysql
+    profile-separator: _
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_URL}:3306/foreco_server_rds?&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+        database-platform: org.hibernate.dialect.MySQL8Dialect
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+        SQL: debug
