@@ -1,7 +1,7 @@
 ## 📌Feature Issue
 > feature 작업 사항을 입력해주세요.
 ## 📝To-do
-- [X] todo1
+- [ ] todo1
 - [ ] todo2
 
 ## ETC

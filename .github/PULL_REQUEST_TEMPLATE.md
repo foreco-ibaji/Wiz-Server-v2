@@ -1,6 +1,6 @@
 ### ✒️ 관련 이슈번호
 
-- Close #issueNumber
+- Close # issueNumber
 
 ## 🔑 Key Changes
 
