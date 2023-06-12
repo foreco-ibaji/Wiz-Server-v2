@@ -4,6 +4,7 @@ import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
 import com.sesacthon.foreco.disposal.entity.Disposal;
 import com.sesacthon.foreco.example.dto.response.ExampleInfoDto;
 import com.sesacthon.foreco.example.entity.Example;
+import com.sesacthon.foreco.trash.entity.DisposalType;
 import com.sesacthon.foreco.trash.entity.Trash;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +19,14 @@ import lombok.Getter;
 public class TrashDetailDto {
   private final int orderOfTab;
   private final int maxNumOfTab;
+  private final String titleOfTab;
 
   /**
    * 쓰레기 고유 Id
    */
   private final Long id;
+
+  private final DisposalType isRecyclable;
 
   /**
    * 쓰레기 이름
@@ -37,8 +41,12 @@ public class TrashDetailDto {
   /**
    * 쓰레기 배출 가능 시간 정보
    */
-  private final List<DisposalInfoDto> disposalInfo;
-  private final String remark;
+  private final DisposalInfoDto disposalInfo;
+
+  /**
+   * 쓰레기 유의사항
+   */
+  private final List<String> remark;
 
   /**
    * 관련 쓰레기 예시
@@ -61,18 +69,22 @@ public class TrashDetailDto {
   public TrashDetailDto(Trash trash, List<Disposal> disposals, List<Example> examples) {
     this.orderOfTab = trash.getOrderOfTab();
     this.maxNumOfTab = trash.getMaxNumOfTab();
+    this.titleOfTab = trash.getTabTitle();
     this.id = trash.getId();
+    this.isRecyclable = trash.getType();
     this.trashName = trash.getTrashName();
     this.disposalMethod = trash.getMethod();
-    this.remark = trash.getRemark();
+    this.remark = parsingRemark(trash.getRemark());
 
-    this.disposalInfo = disposals.stream()
-        .map(DisposalInfoDto::new)
-        .collect(Collectors.toList());
-
+    //조건을 만족하는 Disposal 데이터를 가져왔다.
+    this.disposalInfo = new DisposalInfoDto(disposals);
     this.examples = examples.stream()
         .map(ExampleInfoDto::new)
         .collect(Collectors.toList());
+  }
+
+  private List<String> parsingRemark(String remark) {
+    return Arrays.stream(remark.split("&")).toList();
   }
 
 
