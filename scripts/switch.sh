@@ -16,6 +16,8 @@ else
   exit 1
 fi
 
+sudo chmod +w /home/ec2-user/service_url.inc
+
 #Change proxying port into target group
 echo "set \$service_url http://127.0.0.1:${TARGET_PORT};" | tee /home/ec2-user/service_url.inc
 
