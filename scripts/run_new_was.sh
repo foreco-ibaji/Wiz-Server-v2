@@ -11,7 +11,7 @@ elif [ ${CURRENT_PORT} -eq 8082 ]; then
   TARGET_PORT=8081
 else
   echo "> No WAS is connected to nginx"
-fi가
+fi
 
 TARGET_PID=$(lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
 
