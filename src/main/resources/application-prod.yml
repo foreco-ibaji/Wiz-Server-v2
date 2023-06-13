@@ -14,12 +14,11 @@ spring:
   config:
     activate:
       on-profile: prod
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DATABASE-URL}:3306/foreco_mysql?&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: ${DATABASE-USERNAME}
-    password: ${DATABASE-PASSWORD}
+    url: jdbc:mysql://${DATABASE_URL}:3306/foreco_mysql?&useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
 
   jpa:
     hibernate:
@@ -35,12 +34,12 @@ cloud:
   aws:
     credentials:
       keys:
-        - access-key: ${S3-ACCESS}
-          secret-key: ${S3-SECRET}
-        - access-key: ${DYNAMO-ACCESS}
-          secret-key: ${DYNAMO-SECRET}
+        - access-key: ${S3_ACCESS}
+          secret-key: ${S3_SECRET}
+        - access-key: ${DYNAMO_ACCESS}
+          secret-key: ${DYNAMO_SECRET}
     s3:
-      bucket: ${S3-BUCKET}
+      bucket: ${S3_BUCKET}
     stack:
       auto: false
     region:
