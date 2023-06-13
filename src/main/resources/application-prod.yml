@@ -1,5 +1,6 @@
 #application-prod.yml
 
+
 awsParameterStorePropertySource:
   enabled: true
 
@@ -54,3 +55,8 @@ logging:
           descriptor:
             sql: trace
         SQL: debug
+server:
+  port: 8081
+---
+server:
+  port: 8082
