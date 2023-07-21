@@ -1,5 +1,6 @@
 package com.sesacthon.foreco.trash.repository;
 
+import com.sesacthon.foreco.trash.dto.response.RelevantTrashDetailDTO;
 import com.sesacthon.foreco.trash.entity.Trash;
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +20,10 @@ public interface TrashRepository extends JpaRepository<Trash, Long> {
 
   @Query("select t.category.id from Trash t where t.id = :trashId")
   Long findCategoryId(@Param("trashId") Long trashId);
+
+  @Query("select t.category.id from Trash t where t.trashName = :trashName")
+  Long findCategoryIdByName(@Param("trashName") String trashName);
+
+  @Query("select t from Trash t where t.region.id = :regionId and t.category.id = :categoryId and t.trashName <> :trashName")
+  Optional<List<Trash>> findTrashByRegionIdAndCategoryId(@Param("regionId") Long regionId, @Param("categoryId") Long categoryId, @Param("trashName") String trashName);
 }

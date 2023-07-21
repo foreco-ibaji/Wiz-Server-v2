@@ -88,4 +88,9 @@ public class Trash {
   @JoinColumn(name = "region_id")
   private Region region;
 
+  /*
+  * trash_icon
+  * */
+  private String trashIcon;
+
 }
