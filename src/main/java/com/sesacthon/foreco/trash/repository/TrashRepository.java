@@ -1,6 +1,5 @@
 package com.sesacthon.foreco.trash.repository;
 
-import com.sesacthon.foreco.trash.dto.response.RelevantTrashDetailDTO;
 import com.sesacthon.foreco.trash.entity.Trash;
 import java.util.List;
 import java.util.Optional;
@@ -11,9 +10,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrashRepository extends JpaRepository<Trash, Long> {
+
   @Query("select t from Trash t where t.region.id = :regionId and t.trashName = :name and t.orderOfTab = :tab")
   Optional<Trash> findTrashByRegionAndName(@Param("regionId") Long regionId,
-                                         @Param("name") String name, @Param("tab") int tab);
+      @Param("name") String name, @Param("tab") int tab);
 
   @Query("select t from Trash t where t.region.id = :regionId and t.trashName like '%페트병'")
   List<Trash> findPlasticByRegion(@Param("regionId") Long regionId);
@@ -21,9 +21,7 @@ public interface TrashRepository extends JpaRepository<Trash, Long> {
   @Query("select t.category.id from Trash t where t.id = :trashId")
   Long findCategoryId(@Param("trashId") Long trashId);
 
-  @Query("select t.category.id from Trash t where t.trashName = :trashName")
-  Long findCategoryIdByName(@Param("trashName") String trashName);
-
-  @Query("select t from Trash t where t.region.id = :regionId and t.category.id = :categoryId and t.trashName <> :trashName")
-  Optional<List<Trash>> findTrashByRegionIdAndCategoryId(@Param("regionId") Long regionId, @Param("categoryId") Long categoryId, @Param("trashName") String trashName);
+  @Query("select t from Trash t where t.region.id = :regionId and t.category.id = :categoryId and t.trashName <> :trashName and t.orderOfTab = 0")
+  Optional<List<Trash>> findTrashByRegionIdAndCategoryId(@Param("regionId") Long regionId,
+      @Param("categoryId") Long categoryId, @Param("trashName") String trashName);
 }

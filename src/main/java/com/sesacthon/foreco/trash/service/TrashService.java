@@ -6,8 +6,8 @@ import com.sesacthon.foreco.disposal.entity.Disposal;
 import com.sesacthon.foreco.disposal.repository.DisposalRepository;
 import com.sesacthon.foreco.region.service.RegionService;
 import com.sesacthon.foreco.trash.dto.response.PlasticDetailDto;
-import com.sesacthon.foreco.trash.dto.response.RelevantTrashDTO;
-import com.sesacthon.foreco.trash.dto.response.RelevantTrashDetailDTO;
+import com.sesacthon.foreco.trash.dto.response.RelevantTrashesDto;
+import com.sesacthon.foreco.trash.dto.response.RelevantTrashDetailDto;
 import com.sesacthon.foreco.trash.dto.response.TrashDetailDto;
 import com.sesacthon.foreco.trash.entity.Trash;
 import com.sesacthon.foreco.trash.exception.TrashNotFoundException;
@@ -51,22 +51,19 @@ public class TrashService {
     return new PlasticDetailDto(plastics, disposals);
   }
 
-  public RelevantTrashDTO findRelevantTrash(String region, String trashName) {
+  public RelevantTrashesDto findRelevantTrash(String region, String trashName, int tab) {
 
     //지역 id
     Long regionId = regionService.findRegion(region);
     //category id
-    Long categoryId = trashRepository.findCategoryIdByName(trashName);
+    Trash trash = trashRepository.findTrashByRegionAndName(regionId, trashName, tab)
+        .orElseThrow(() -> new TrashNotFoundException(TRASH_NOT_FOUND));
+    Long categoryId = trash.getCategory().getId();
     //관련쓰레기 정보
-    List<Trash> trash = trashRepository.findTrashByRegionIdAndCategoryId(regionId, categoryId,
+    List<Trash> trashes = trashRepository.findTrashByRegionIdAndCategoryId(regionId, categoryId,
             trashName)
         .orElseThrow(() -> new TrashNotFoundException(TRASH_NOT_FOUND));
-    List<RelevantTrashDetailDTO> trashList = new ArrayList<>();
-    for (Trash now : trash) {
-      trashList.add(new RelevantTrashDetailDTO(now.getId(), now.getTrashName(), now.getOrderOfTab(),
-          now.getTrashIcon()));
-    }
 
-    return new RelevantTrashDTO(trashList);
+    return new RelevantTrashesDto(trashes);
   }
 }
