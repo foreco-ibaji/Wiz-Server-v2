@@ -1,5 +1,6 @@
 package com.sesacthon.foreco.trash.service;
 
+import static com.sesacthon.global.exception.ErrorCode.RELATED_TRASH_NOT_FOUND;
 import static com.sesacthon.global.exception.ErrorCode.TRASH_NOT_FOUND;
 
 import com.sesacthon.foreco.disposal.entity.Disposal;
@@ -7,13 +8,12 @@ import com.sesacthon.foreco.disposal.repository.DisposalRepository;
 import com.sesacthon.foreco.region.service.RegionService;
 import com.sesacthon.foreco.trash.dto.response.PlasticDetailDto;
 import com.sesacthon.foreco.trash.dto.response.RelevantTrashesDto;
-import com.sesacthon.foreco.trash.dto.response.RelevantTrashDetailDto;
 import com.sesacthon.foreco.trash.dto.response.TrashDetailDto;
 import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.trash.exception.RelatedTrashNotFoundException;
 import com.sesacthon.foreco.trash.exception.TrashNotFoundException;
 import com.sesacthon.foreco.trash.repository.TrashRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,8 +61,11 @@ public class TrashService {
     Long categoryId = trash.getCategory().getId();
     //관련쓰레기 정보
     List<Trash> trashes = trashRepository.findTrashByRegionIdAndCategoryId(regionId, categoryId,
-            trashName)
-        .orElseThrow(() -> new TrashNotFoundException(TRASH_NOT_FOUND));
+        trashName);
+    //빈 List인 경우 error발생
+    if (trashes.isEmpty()) {
+      throw new RelatedTrashNotFoundException(RELATED_TRASH_NOT_FOUND);
+    }
 
     return new RelevantTrashesDto(trashes);
   }

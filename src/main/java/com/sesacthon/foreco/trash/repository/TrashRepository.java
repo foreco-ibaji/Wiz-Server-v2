@@ -22,6 +22,6 @@ public interface TrashRepository extends JpaRepository<Trash, Long> {
   Long findCategoryId(@Param("trashId") Long trashId);
 
   @Query("select t from Trash t where t.region.id = :regionId and t.category.id = :categoryId and t.trashName <> :trashName and t.orderOfTab = 0")
-  Optional<List<Trash>> findTrashByRegionIdAndCategoryId(@Param("regionId") Long regionId,
+  List<Trash> findTrashByRegionIdAndCategoryId(@Param("regionId") Long regionId,
       @Param("categoryId") Long categoryId, @Param("trashName") String trashName);
 }
