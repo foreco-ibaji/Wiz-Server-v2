@@ -88,4 +88,9 @@ public class Trash {
   @JoinColumn(name = "region_id")
   private Region region;
 
+  /**
+   * 쓰레기 아이콘 이미지
+   * */
+  private String trashIcon;
+
 }

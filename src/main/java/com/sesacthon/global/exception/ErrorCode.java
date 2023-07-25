@@ -26,6 +26,10 @@ public enum ErrorCode {
   DISPOSAL_TYPE_ENUM_NOT_SUPPORTED(HttpStatus.BAD_REQUEST, "T001", "해당 배출형태의 정보가 없습니다."),
   TRASH_NOT_FOUND(HttpStatus.BAD_REQUEST, "T002", "현재 지역의 해당 쓰레기 배출 정보가 없습니다."),
 
+  //관련 쓰레기
+  RELATED_TRASH_NOT_FOUND(HttpStatus.BAD_REQUEST, "T003", "현재 지역의 관련 쓰레기 배출 정보가 없습니다."),
+
+
   //이미지 저장
   IMAGE_WRONG_FILE_FORMAT(HttpStatus.BAD_REQUEST, "I001", "지원하지 않는 파일 확장자입니다."),
 
