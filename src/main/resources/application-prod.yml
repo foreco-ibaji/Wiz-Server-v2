@@ -56,6 +56,12 @@ logging:
           descriptor:
             sql: trace
         SQL: debug
-server:
-  port: 8081
+
+oauth2:
+  kakao:
+    infoUrl: https://kapi.kakao.com
+    baseUrl: https://kauth.kakao.com
+    clientId: dd6c51dc02204dacd84d70e52a877d8f
+    redirectUri: http://localhost:8080/api/v1/account/kakao/result
+    secretKey: ${SECRET_KEY}
 
