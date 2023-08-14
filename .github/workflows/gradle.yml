@@ -79,6 +79,6 @@ jobs:
           script: |
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
-            chmod 777 ./deploy.sh
-            ./deploy.sh
+            chmod 777 ./home/ubuntu/deploy/deploy.sh
+            ./home/ubuntu/deploy/deploy.sh
             docker image prune -f
