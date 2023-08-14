@@ -57,7 +57,7 @@ logging:
             sql: trace
         SQL: debug
 server:
-  port: 8081
+  port: 8080
 
 
 
