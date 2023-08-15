@@ -42,3 +42,5 @@ services:
       S3_BUCKET: ${S3_BUCKET}
       S3_SECRET: ${S3_SECRET}
       SECRET_KEY: ${SECRET_KEY}
+    depends_on:
+      - redis
