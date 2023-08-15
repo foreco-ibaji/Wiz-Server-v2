@@ -25,9 +25,8 @@ services:
       S3_BUCKET: ${S3_BUCKET}
       S3_SECRET: ${S3_SECRET}
       SECRET_KEY: ${SECRET_KEY}
-      SPRING_REDIS_HOST: redis  # Redis 서비스의 이름
-      SPRING_REDIS_PORT: 6379    # Redis 서비스의 포트
-
+    depends_on:
+      - redis
 
   blue:
     image: "hoiae/foreco.backend"
@@ -43,5 +42,3 @@ services:
       S3_BUCKET: ${S3_BUCKET}
       S3_SECRET: ${S3_SECRET}
       SECRET_KEY: ${SECRET_KEY}
-      SPRING_REDIS_HOST: redis  # Redis 서비스의 이름
-      SPRING_REDIS_PORT: 6379    # Redis 서비스의 포트

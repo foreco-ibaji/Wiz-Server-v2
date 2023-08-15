@@ -1,8 +1,10 @@
 #!/bin/bash
 #redis -
-docker-compose pull redis
-
-docker-compose up -d redis
+#echo "redis 이미지 받아오기"
+#docker-compose pull redis
+#
+#echo "redis 실행"
+#docker-compose up -d redis
 #redis -
 docker-compose stop green
 
