@@ -1,5 +1,9 @@
 #!/bin/bash
+#redis -
+docker-compose pull redis
 
+docker-compose up -d redis
+#redis -
 docker-compose stop green
 
 echo "그린 이미지 받아오기"
