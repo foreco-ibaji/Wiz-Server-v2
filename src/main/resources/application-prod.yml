@@ -21,7 +21,10 @@ spring:
     password: ${DATABASE_PASSWORD}
     hikari:
       maximum-pool-size: 30
-
+  #redis연결 설정
+  redis:
+    host: redis_docker
+    port: 6379
 
   jpa:
     hibernate:
