@@ -1,6 +1,6 @@
-package com.sesacthon.foreco.trash.repository;
+package com.sesacthon.foreco.member.trash.repository;
 
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.entity.Trash;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

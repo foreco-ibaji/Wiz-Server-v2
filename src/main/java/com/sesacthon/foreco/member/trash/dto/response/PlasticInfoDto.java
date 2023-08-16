@@ -1,7 +1,7 @@
-package com.sesacthon.foreco.trash.dto.response;
+package com.sesacthon.foreco.member.trash.dto.response;
 
 import com.sesacthon.foreco.example.dto.response.ExampleSimpleDto;
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.entity.Trash;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

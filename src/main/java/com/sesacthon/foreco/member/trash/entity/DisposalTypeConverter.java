@@ -1,4 +1,4 @@
-package com.sesacthon.foreco.trash.entity;
+package com.sesacthon.foreco.member.trash.entity;
 
 import jakarta.persistence.AttributeConverter;
 

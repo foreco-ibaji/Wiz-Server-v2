@@ -65,7 +65,7 @@ oauth2:
     clientId: dd6c51dc02204dacd84d70e52a877d8f
     #TODO: 실제 배포 도메인 주소로 바꿔야 함
   #  redirectUri: http://localhost:8080/api/v1/account/kakao/result
-    redirectUri: "http://${EC2_HOST}:8080/api/v1/account/kakao/result"
+    redirectUri: http://${EC2_HOST}:8080/api/v1/account/kakao/result
     secretKey: ${SECRET_KEY}
 
 

@@ -1,18 +1,18 @@
-package com.sesacthon.foreco.trash.service;
+package com.sesacthon.foreco.member.trash.service;
 
 import static com.sesacthon.global.exception.ErrorCode.RELATED_TRASH_NOT_FOUND;
 import static com.sesacthon.global.exception.ErrorCode.TRASH_NOT_FOUND;
 
 import com.sesacthon.foreco.disposal.entity.Disposal;
 import com.sesacthon.foreco.disposal.repository.DisposalRepository;
+import com.sesacthon.foreco.member.trash.dto.response.PlasticDetailDto;
+import com.sesacthon.foreco.member.trash.dto.response.TrashDetailDto;
+import com.sesacthon.foreco.member.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.exception.RelatedTrashNotFoundException;
 import com.sesacthon.foreco.region.service.RegionService;
-import com.sesacthon.foreco.trash.dto.response.PlasticDetailDto;
-import com.sesacthon.foreco.trash.dto.response.RelevantTrashesDto;
-import com.sesacthon.foreco.trash.dto.response.TrashDetailDto;
-import com.sesacthon.foreco.trash.entity.Trash;
-import com.sesacthon.foreco.trash.exception.RelatedTrashNotFoundException;
-import com.sesacthon.foreco.trash.exception.TrashNotFoundException;
-import com.sesacthon.foreco.trash.repository.TrashRepository;
+import com.sesacthon.foreco.member.trash.dto.response.RelevantTrashesDto;
+import com.sesacthon.foreco.member.trash.exception.TrashNotFoundException;
+import com.sesacthon.foreco.member.trash.repository.TrashRepository;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;

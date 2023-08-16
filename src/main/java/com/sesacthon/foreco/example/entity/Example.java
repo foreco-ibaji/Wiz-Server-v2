@@ -2,7 +2,7 @@ package com.sesacthon.foreco.example.entity;
 
 import static jakarta.persistence.FetchType.LAZY;
 
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.entity.Trash;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

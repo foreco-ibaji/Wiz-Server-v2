@@ -8,7 +8,7 @@ import com.sesacthon.foreco.motivation.dto.response.MotivationDetailDto;
 import com.sesacthon.foreco.motivation.entity.Motivation;
 import com.sesacthon.foreco.motivation.exception.MotivationNotFoundException;
 import com.sesacthon.foreco.motivation.repository.MotivationRepository;
-import com.sesacthon.foreco.trash.repository.TrashRepository;
+import com.sesacthon.foreco.member.trash.repository.TrashRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

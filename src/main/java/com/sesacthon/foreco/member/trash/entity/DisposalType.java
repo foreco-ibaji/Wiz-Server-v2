@@ -1,6 +1,6 @@
-package com.sesacthon.foreco.trash.entity;
+package com.sesacthon.foreco.member.trash.entity;
 
-import com.sesacthon.foreco.trash.exception.TypeNotSupportedException;
+import com.sesacthon.foreco.member.trash.exception.TypeNotSupportedException;
 import com.sesacthon.global.exception.ErrorCode;
 import java.util.Arrays;
 import lombok.Getter;

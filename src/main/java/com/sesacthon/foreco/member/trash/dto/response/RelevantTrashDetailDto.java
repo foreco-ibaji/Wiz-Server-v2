@@ -1,4 +1,4 @@
-package com.sesacthon.foreco.trash.dto.response;
+package com.sesacthon.foreco.member.trash.dto.response;
 
 
 import lombok.Getter;
