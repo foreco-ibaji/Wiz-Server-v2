@@ -4,9 +4,6 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
-    command: redis-server --port 6379
-    container_name: redis_docker
-    hostname: redis_docker
     labels:
       - "name=redis"
       - "mode=standalone"
