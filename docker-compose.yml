@@ -29,6 +29,8 @@ services:
       EC2_HOST: ${EC2_HOST}
     depends_on:
       - redis
+    links:
+      - redis
 
   blue:
     image: "hoiae/foreco.backend"
@@ -46,4 +48,6 @@ services:
       SECRET_KEY: ${SECRET_KEY}
       EC2_HOST: ${EC2_HOST}
     depends_on:
+      - redis
+    links:
       - redis
