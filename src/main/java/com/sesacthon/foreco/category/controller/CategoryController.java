@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name="쓰레기 카테고리", description = "카테고리 관련 api")
@@ -30,11 +29,4 @@ public class CategoryController {
     CategoryDetailDto response = categoryService.findDetailInfo(regionId, categoryName);
     return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "카테고리 상세 정보 조회 성공", response), HttpStatus.OK);
   }
-
-  @GetMapping("/")
-  @ResponseBody
-  public String testMethod(){
-    return "test";
-  }
-
 }
