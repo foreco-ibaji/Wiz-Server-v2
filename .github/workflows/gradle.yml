@@ -29,11 +29,22 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
+      # 이미지 다중플랫폼 빌드를 위한 buildx 설치
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       #빌드 후 도커 허브로 push
+#      - name: Docker Build & Push to Hub
+#        run: |
+#          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+#          docker build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }} -f ./dockerfile .
+#          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
       - name: Docker Build & Push to Hub
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }} -f ./dockerfile .
+          docker buildx create --use
+          docker buildx build --platform linux/amd64,linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }} -f ./dockerfile .
+          docker buildx stop
           docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
 
       # 환경 변수 파일 서버로 전달하기(복사 후 붙여넣기)
