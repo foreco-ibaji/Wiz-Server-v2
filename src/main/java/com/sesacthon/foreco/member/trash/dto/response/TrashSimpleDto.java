@@ -1,6 +1,6 @@
-package com.sesacthon.foreco.trash.dto.response;
+package com.sesacthon.foreco.member.trash.dto.response;
 
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.entity.Trash;
 import lombok.Getter;
 
 /**

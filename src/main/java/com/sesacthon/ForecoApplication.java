@@ -1,5 +1,7 @@
 package com.sesacthon;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableJpaRepositories(basePackages = "com.sesacthon.foreco")
+@OpenAPIDefinition(servers = {@Server(url = "https://foreco.store", description = "Default Server URL")})
 public class ForecoApplication {
 
   public static void main(String[] args) {
@@ -33,5 +36,4 @@ public class ForecoApplication {
       }
     };
   }
-
 }

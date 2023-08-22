@@ -1,9 +1,9 @@
-package com.sesacthon.foreco.trash.controller;
+package com.sesacthon.foreco.member.trash.controller;
 
-import com.sesacthon.foreco.trash.dto.response.PlasticDetailDto;
-import com.sesacthon.foreco.trash.dto.response.RelevantTrashesDto;
-import com.sesacthon.foreco.trash.dto.response.TrashDetailDto;
-import com.sesacthon.foreco.trash.service.TrashService;
+import com.sesacthon.foreco.member.trash.dto.response.PlasticDetailDto;
+import com.sesacthon.foreco.member.trash.dto.response.RelevantTrashesDto;
+import com.sesacthon.foreco.member.trash.dto.response.TrashDetailDto;
+import com.sesacthon.foreco.member.trash.service.TrashService;
 import com.sesacthon.global.response.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

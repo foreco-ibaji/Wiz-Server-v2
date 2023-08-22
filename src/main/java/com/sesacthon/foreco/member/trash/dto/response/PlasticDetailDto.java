@@ -1,11 +1,11 @@
-package com.sesacthon.foreco.trash.dto.response;
+package com.sesacthon.foreco.member.trash.dto.response;
 
-import static com.sesacthon.foreco.trash.entity.DisposalType.*;
+import static com.sesacthon.foreco.member.trash.entity.DisposalType.*;
 
 import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
 import com.sesacthon.foreco.disposal.entity.Disposal;
-import com.sesacthon.foreco.trash.entity.DisposalType;
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.entity.DisposalType;
+import com.sesacthon.foreco.member.trash.entity.Trash;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;

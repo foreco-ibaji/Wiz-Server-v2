@@ -29,5 +29,4 @@ public class CategoryController {
     CategoryDetailDto response = categoryService.findDetailInfo(regionId, categoryName);
     return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "카테고리 상세 정보 조회 성공", response), HttpStatus.OK);
   }
-
 }

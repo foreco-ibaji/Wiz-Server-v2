@@ -1,11 +1,11 @@
-package com.sesacthon.foreco.trash.dto.response;
+package com.sesacthon.foreco.member.trash.dto.response;
 
 import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
 import com.sesacthon.foreco.disposal.entity.Disposal;
 import com.sesacthon.foreco.example.dto.response.ExampleInfoDto;
 import com.sesacthon.foreco.example.entity.Example;
-import com.sesacthon.foreco.trash.entity.DisposalType;
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.member.trash.entity.DisposalType;
+import com.sesacthon.foreco.member.trash.entity.Trash;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

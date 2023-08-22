@@ -63,6 +63,9 @@ oauth2:
     baseUrl: https://kauth.kakao.com
     clientId: dd6c51dc02204dacd84d70e52a877d8f
     #TODO: 실제 배포 도메인 주소로 바꿔야 함
-    redirectUri: http://localhost:8080/api/v1/account/kakao/result
+  #  redirectUri: http://localhost:8080/api/v1/account/kakao/result
+    #Redirect URI: http://43.202.145.113/api/v1/account/kakao/result
+    redirectUri: http://${EC2_HOST}
     secretKey: ${SECRET_KEY}
+
 

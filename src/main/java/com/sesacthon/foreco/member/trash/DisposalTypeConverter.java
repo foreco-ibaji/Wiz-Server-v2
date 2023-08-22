@@ -1,6 +1,6 @@
-package com.sesacthon.foreco.trash;
+package com.sesacthon.foreco.member.trash;
 
-import com.sesacthon.foreco.trash.entity.DisposalType;
+import com.sesacthon.foreco.member.trash.entity.DisposalType;
 import jakarta.persistence.AttributeConverter;
 
 public class DisposalTypeConverter implements AttributeConverter<DisposalType, Integer> {

@@ -44,8 +44,10 @@ public class MemberController {
   @PostMapping("/api/v1/guest/signup")
   public ResponseEntity<DataResponse<MemberSimpleInfoResponse>> guestLogin() {
 
+    log.info("sign up Controller 요청 들어옴");
     LoginResponseDto guestLoginResponse = memberSignUpService.loginGuestMember();
     HttpHeaders headers = setCookieAndHeader(guestLoginResponse);
+    log.info("sign up Controller 요청 들어옴2");
 
     return new ResponseEntity<>(DataResponse.of(HttpStatus.CREATED,
         "게스트 회원 가입 성공", guestLoginResponse.getMember()), headers, HttpStatus.CREATED);
