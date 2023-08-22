@@ -1,15 +1,22 @@
 name: Deploy to AWS by docker
 
-on:
-  push:
-    branches: [ "feat/#73" ]
+#on:
+#  push:
+#    branches: [ "feat/#73" ]
 
+#develop 브랜치에 pr이 merged돼야 동작하는 workflow
+on:
+  pull_request:
+    branches: [ "develop" ]
+    types:
+      - closed
 # 권한 설정
 permissions:
   contents: read
 
 jobs:
   CI-CD:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
