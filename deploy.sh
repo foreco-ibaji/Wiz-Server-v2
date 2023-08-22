@@ -54,6 +54,6 @@ while [ 1 = 1 ]; do
   fi
 done;
 
-echo "nginx conf 파일 교체"
-sudo cp ./nginx.default.conf /etc/nginx/nginx.conf
-sudo nginx -s reload
+#echo "nginx conf 파일 교체"
+#sudo cp ./nginx.default.conf /etc/nginx/nginx.conf
+#sudo nginx -s reload
