@@ -1,4 +1,4 @@
-name: Deploy to AWS by docker
+name: Deploy to AWS by docker when PR merged
 
 #on:
 #  push:
