@@ -2,7 +2,7 @@ name: Deploy to AWS by Docker when push to develop
 
 on:
   push:
-    branches: [ "feat/#77" ]
+    branches: [ "develop" ]
 
 # 권한 설정
 permissions:
