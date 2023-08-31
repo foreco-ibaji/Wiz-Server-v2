@@ -2,6 +2,7 @@ package com.sesacthon.foreco.disposal.dto.response;
 
 import com.sesacthon.foreco.disposal.entity.Disposal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 
@@ -14,6 +15,12 @@ public class DisposalInfoDto {
   // private final List<String> days 로 올려야 한다.
   private final List<String> days;
   private final String time;
+
+  //mock api작업을 위해 생성한 생성자
+  public DisposalInfoDto() {
+    this.days = Arrays.asList("월요일", "수요일", "금요일");
+    this.time = "18:00 ~ 21:00";
+  }
 
 //  public DisposalInfoDto(Disposal disposal) {
 //    this.day = disposal.getDay();
@@ -28,6 +35,5 @@ public class DisposalInfoDto {
     this.time = disposals.get(0).getTime();
 
   }
-
 
 }
