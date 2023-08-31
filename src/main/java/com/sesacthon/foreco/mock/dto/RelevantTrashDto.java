@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class RelevantTrashDto {
+
   private final Long id;
   private final String name;
   private final String iconUrl;

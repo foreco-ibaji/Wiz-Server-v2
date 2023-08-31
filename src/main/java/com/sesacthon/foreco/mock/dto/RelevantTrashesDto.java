@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class RelevantTrashesDto {
+
   private final List<RelevantTrashDto> recommendTrashes;
 
 

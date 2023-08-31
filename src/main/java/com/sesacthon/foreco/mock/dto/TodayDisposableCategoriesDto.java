@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class TodayDisposableCategoriesDto {
+
   private final List<String> categoryNames;
 
   public TodayDisposableCategoriesDto(List<String> categoryNames) {

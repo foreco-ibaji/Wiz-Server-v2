@@ -68,7 +68,7 @@ public class MockController {
   public ResponseEntity<DataResponse<TrashDetailDto>> getTrashDetails(
       @Parameter(description = "id == 1, detailType=map /id == 2, detailType = big / 나머지는 detailType = basic 이 반환되게 해놨습니다.") @RequestParam("id") Long id) {
     //지도 Map
-    if (id == 1L){
+    if (id == 1L) {
       TrashDetailDto response = new TrashDetailDto(1L, DetailType.MAP, "지도/폐건전지",
           "폐건전지는 전용 수거함에 버려주세요. 가까운 곳에 폐건전지 수거함이 없다면, 주민센터를 활용하여 버릴수 있어요.", new DisposalInfoDto(),
           Arrays.asList(" "));
@@ -90,7 +90,8 @@ public class MockController {
         "계란의 단단한 껍질은 종량제 쓰레기 봉투에 담아 배출해주세요.", new DisposalInfoDto(),
         Arrays.asList("날달걀, 삶은 달걍 등이 상했다면 껍데기를 까서 계란 속은 음식물 쓰레기로 버리고,단단한 껍질만 일반쓰레기(종량제 봉투)로 버려주세요.",
             "껍질 속을 물로 한번 헹궈서 버리면 쓰레기 봉투 안에서 썩거나 벌레가 생기는 걸 막을 수 있어서 도움이 될 수 있어요."));
-    return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
+    return new ResponseEntity<>(
+        DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
 
 
   }
