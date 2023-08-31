@@ -1,6 +1,6 @@
 package com.sesacthon.foreco.category.dto.response;
 
-import com.sesacthon.foreco.category.entity.Category;
+import com.sesacthon.foreco.category.entity.Trash;
 import lombok.Getter;
 
 @Getter
@@ -9,9 +9,9 @@ public class CategorySimpleDto {
   private final Long categoryId;
   private final String categoryName;
 
-  public CategorySimpleDto(Category category) {
-    this.categoryId = category.getId();
-    this.categoryName = category.getTrashType();
+  public CategorySimpleDto(Trash trash) {
+    this.categoryId = trash.getId();
+    this.categoryName = trash.getTrashType();
   }
 
   public CategorySimpleDto(Long id, String name) {

@@ -1,8 +1,10 @@
-package com.sesacthon.foreco.example.entity;
+package com.sesacthon.foreco.trash.entity;
 
-import static jakarta.persistence.FetchType.LAZY;
+import static jakarta.persistence.FetchType.*;
 
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.category.entity.Trash;
+
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,37 +15,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * 쓰레기 예시 정보
+ * 쓰레기의 자세한 정보
  */
 @Entity
 @NoArgsConstructor
 @Getter
-public class Example {
+public class TrashInfo {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   /**
-   * 예시 쓰레기 이름
+   * 쓰레기 상세 처리방법
    */
-  private String trashName;
+  private String method;
 
   /**
-   * 예시 쓰레기 배출방법
+   * 쓰레기 처리형태
    */
-  private String disposalMethod;
+  @Convert(converter = DisposalTypeConverter.class)
+  private DisposalType type;
 
   /**
-   * 예시 쓰레기 이미지
-   */
-  private String imgUrl;
-
-  /**
-   * 해당 데이터를 예시로 가지는 상세 쓰레기
+   * 쓰레기 카테고리
    */
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "trash_id")
   private Trash trash;
+
 
 }

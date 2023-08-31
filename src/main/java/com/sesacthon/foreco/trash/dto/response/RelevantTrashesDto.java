@@ -1,6 +1,6 @@
 package com.sesacthon.foreco.trash.dto.response;
 
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.trash.entity.TrashInfo;
 import java.util.ArrayList;
 import lombok.Getter;
 
@@ -11,16 +11,16 @@ public class RelevantTrashesDto {
 
   private final List<RelevantTrashDetailDto> relevantTrashesInfo;
 
-  public RelevantTrashesDto(List<Trash> trashes) {
+  public RelevantTrashesDto(List<TrashInfo> trashInfos) {
 
-    this.relevantTrashesInfo = trashesConvertToRelevantTrashes(trashes);
+    this.relevantTrashesInfo = trashesConvertToRelevantTrashes(trashInfos);
   }
 
-  private static List<RelevantTrashDetailDto> trashesConvertToRelevantTrashes(List<Trash> trashes) {
+  private static List<RelevantTrashDetailDto> trashesConvertToRelevantTrashes(List<TrashInfo> trashInfos) {
     List<RelevantTrashDetailDto> relevantTrashes = new ArrayList<>();
-    for (Trash trash : trashes) {
+    for (TrashInfo trashInfo : trashInfos) {
       relevantTrashes.add(
-          new RelevantTrashDetailDto(trash.getId(), trash.getTrashName(), trash.getTrashIcon()));
+          new RelevantTrashDetailDto(trashInfo.getId(), trashInfo.getTrash().getTrashType(), trashInfo.getTrash().getTrashIcon().toString()));
     }
     return relevantTrashes;
   }

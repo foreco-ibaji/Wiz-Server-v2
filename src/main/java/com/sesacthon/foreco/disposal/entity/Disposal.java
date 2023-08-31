@@ -1,9 +1,6 @@
 package com.sesacthon.foreco.disposal.entity;
 
-import static jakarta.persistence.FetchType.*;
-
-import com.sesacthon.foreco.region.entity.Region;
-import com.sesacthon.foreco.category.entity.Category;
+import com.sesacthon.foreco.category.entity.RegionCategory;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,18 +32,8 @@ public class Disposal {
    */
   private String day;
 
-  /**
-   * 배출 가능 카테고리
-   */
-  @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "category_id")
-  private Category category;
-
-  /**
-   * 지역 정보
-   */
-  @ManyToOne(fetch = LAZY)
-  @JoinColumn(name = "region_id")
-  private Region region;
+  @ManyToOne
+  @JoinColumn(name = "region_category_id")
+  private RegionCategory regionCategory;
 
 }

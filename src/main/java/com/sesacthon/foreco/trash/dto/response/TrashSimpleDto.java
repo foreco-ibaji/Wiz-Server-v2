@@ -1,6 +1,6 @@
 package com.sesacthon.foreco.trash.dto.response;
 
-import com.sesacthon.foreco.trash.entity.Trash;
+import com.sesacthon.foreco.trash.entity.TrashInfo;
 import lombok.Getter;
 
 /**
@@ -12,9 +12,9 @@ public class TrashSimpleDto {
   private final Long id;
   private final String name;
 
-  public TrashSimpleDto(Trash trash) {
-    this.id = trash.getId();
-    this.name = trash.getTrashName();
+  public TrashSimpleDto(TrashInfo trashInfo) {
+    this.id = trashInfo.getId();
+    this.name = trashInfo.getTrash().getTrashType();
   }
 
   public TrashSimpleDto(Long id, String name) {
