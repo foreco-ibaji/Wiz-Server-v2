@@ -32,6 +32,11 @@ public class Member extends BaseTimeEntity {
   private Role role;
 
   /**
+   * 멤버가 가지고 있는 리워드 총 포인트
+   */
+  private Long totalPoint;
+
+  /**
    * 회원번호 (oauthProvider#회원번호)
    * 게스트 로그인한 사용자의 이름을 나타내기 위해서 생성했습니다.
    */
@@ -53,8 +58,6 @@ public class Member extends BaseTimeEntity {
    */
   @Enumerated(EnumType.STRING)
   private OAuth2Provider oauth2Provider;
-
-
 
   @PrePersist
   public void createId() {

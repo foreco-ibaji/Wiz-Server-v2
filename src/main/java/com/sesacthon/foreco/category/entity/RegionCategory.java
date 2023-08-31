@@ -1,6 +1,6 @@
-package com.sesacthon.foreco.disposal.entity;
+package com.sesacthon.foreco.category.entity;
 
-import com.sesacthon.foreco.category.entity.RegionCategory;
+import com.sesacthon.foreco.region.entity.Region;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,30 +10,21 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * 지역 기반 쓰레기 배출 정보
- */
 @Entity
 @NoArgsConstructor
 @Getter
-public class Disposal {
+public class RegionCategory {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  /**
-   * 쓰레기 배출 가능 시간
-   */
-  private String time;
-
-  /**
-   * 쓰레기 배출 가능 요일
-   */
-  private String day;
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private Trash trash;
 
   @ManyToOne
-  @JoinColumn(name = "region_category_id")
-  private RegionCategory regionCategory;
+  @JoinColumn(name = "region_id")
+  private Region region;
 
 }

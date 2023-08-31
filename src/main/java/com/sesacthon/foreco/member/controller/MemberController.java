@@ -1,11 +1,8 @@
 package com.sesacthon.foreco.member.controller;
 
-import static com.sesacthon.foreco.member.service.MemberSignUpService.setCookieAndHeader;
-
 import com.sesacthon.foreco.jwt.dto.SessionUser;
 import com.sesacthon.foreco.member.dto.response.LoginResponseDto;
 import com.sesacthon.foreco.member.dto.response.MemberInfoResponseDto;
-import com.sesacthon.foreco.member.dto.response.MemberSimpleInfoResponse;
 import com.sesacthon.foreco.member.service.MemberInfoService;
 import com.sesacthon.foreco.member.service.MemberSignUpService;
 import com.sesacthon.global.response.DataResponse;
@@ -21,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,23 +31,6 @@ public class MemberController {
   private final MemberSignUpService memberSignUpService;
   private final MemberInfoService memberInfoService;
 
-  /**
-   * 게스트 로그인 관련 컨트롤러
-   */
-  @Operation(
-      summary = "게스트 회원가입",
-      description = "요청 보내면 바로 게스트가 생성되고, accessToken이 발급됩니다.")
-  @PostMapping("/api/v1/guest/signup")
-  public ResponseEntity<DataResponse<MemberSimpleInfoResponse>> guestLogin() {
-
-    log.info("sign up Controller 요청 들어옴");
-    LoginResponseDto guestLoginResponse = memberSignUpService.loginGuestMember();
-    HttpHeaders headers = setCookieAndHeader(guestLoginResponse);
-    log.info("sign up Controller 요청 들어옴2");
-
-    return new ResponseEntity<>(DataResponse.of(HttpStatus.CREATED,
-        "게스트 회원 가입 성공", guestLoginResponse.getMember()), headers, HttpStatus.CREATED);
-  }
 
   /**
    * 로그인 요청을 통해 인가코드를 redirect url로 발급 가능
