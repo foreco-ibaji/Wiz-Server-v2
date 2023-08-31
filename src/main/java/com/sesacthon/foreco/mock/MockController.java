@@ -66,7 +66,7 @@ public class MockController {
   @Operation(summary = "쓰레기 상세 조회 API", description = "쓰레기 상세조회 API 입니다.")
   @GetMapping("mock/api/v1/trash/detail")
   public ResponseEntity<DataResponse<TrashDetailDto>> getTrashDetails(
-      @Parameter(description = "id == 1, detailType=map /id == 2, detailType = big / 나머지는 detailType = basic 이 반환되게 해놨습니다.") @RequestParam("id") Long id) {
+      @Parameter(description = "id == 1 일때 detailType=MAP /id == 2 일때 detailType = BIG / 나머지는 detailType = BASIC이 반환되게 해놨습니다.") @RequestParam("id") Long id) {
     //지도 Map
     if (id == 1L) {
       TrashDetailDto response = new TrashDetailDto(1L, DetailType.MAP, "지도/폐건전지",
@@ -77,7 +77,7 @@ public class MockController {
     }
     //폐기물 Big
     if (id == 2L) {
-      TrashDetailDto response = new TrashDetailDto(2L, DetailType.MAP, "폐기/소파",
+      TrashDetailDto response = new TrashDetailDto(2L, DetailType.BIG, "폐기/소파",
           "소파는 지자체 신고후, 스티커 또는 예약 번호를 적어서 대형 생활 폐기물로 신고배출해주세요.", new DisposalInfoDto(),
           Arrays.asList("집밖으로 배출시에는 등받이, 쿠션등이 떨어지지 않도록 테이프, 끈으로 고정해주세요",
               "대형 생활폐기물 신고 및 수거는 유료이며, 가구의 크기에 따라 2,000원 ~ 10,000원 가량 부과됩니다.",
@@ -86,7 +86,7 @@ public class MockController {
           DataResponse.of(HttpStatus.OK, "detailType = map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
     }
     //일반 Basic
-    TrashDetailDto response = new TrashDetailDto(3L, DetailType.MAP, "일반/계란껍데기",
+    TrashDetailDto response = new TrashDetailDto(3L, DetailType.BASIC, "일반/계란껍데기",
         "계란의 단단한 껍질은 종량제 쓰레기 봉투에 담아 배출해주세요.", new DisposalInfoDto(),
         Arrays.asList("날달걀, 삶은 달걍 등이 상했다면 껍데기를 까서 계란 속은 음식물 쓰레기로 버리고,단단한 껍질만 일반쓰레기(종량제 봉투)로 버려주세요.",
             "껍질 속을 물로 한번 헹궈서 버리면 쓰레기 봉투 안에서 썩거나 벌레가 생기는 걸 막을 수 있어서 도움이 될 수 있어요."));
