@@ -30,6 +30,7 @@ public class CategoryController {
     return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "카테고리 상세 정보 조회 성공", response), HttpStatus.OK);
   }
 
+  //배포 확인용
   @GetMapping()
   public String test(){
     return "ok";
