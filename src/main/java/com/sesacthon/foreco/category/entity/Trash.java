@@ -28,9 +28,9 @@ public class Trash {
   private Long id;
 
   /**
-   * 카테고리 이름
+   * 쓰레기 이름
    */
-  private String trashType;
+  private String name;
 
   /**
    * 쓰레기 보기 형식
