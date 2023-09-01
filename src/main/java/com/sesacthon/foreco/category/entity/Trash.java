@@ -3,6 +3,8 @@ package com.sesacthon.foreco.category.entity;
 import static jakarta.persistence.EnumType.*;
 import static jakarta.persistence.FetchType.*;
 
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Trash {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+//  @Column(name = "TRASH_ID")
   private Long id;
 
   /**
