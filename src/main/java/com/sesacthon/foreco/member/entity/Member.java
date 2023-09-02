@@ -2,7 +2,10 @@ package com.sesacthon.foreco.member.entity;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import com.sesacthon.foreco.common.BaseTimeEntity;
+import com.sesacthon.foreco.region.entity.Region;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -78,4 +81,11 @@ public class Member extends BaseTimeEntity {
     this.profileUrl = profileUrl;
     this.username = username;
   }
+
+  /**
+   * 지역
+   */
+  @ManyToOne
+  @JoinColumn(name="region_id")
+  private Region region;
 }
