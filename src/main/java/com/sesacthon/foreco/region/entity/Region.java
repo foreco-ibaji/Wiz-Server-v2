@@ -27,7 +27,6 @@ public class Region {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column
   private Long id;
 
   /**
