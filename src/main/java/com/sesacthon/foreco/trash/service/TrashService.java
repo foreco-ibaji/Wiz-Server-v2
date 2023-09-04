@@ -4,7 +4,6 @@ import com.sesacthon.foreco.category.entity.Trash;
 import com.sesacthon.foreco.category.repository.TrashRepository;
 import com.sesacthon.foreco.disposal.repository.DisposalRepository;
 
-import com.sesacthon.foreco.mock.dto.TrashDetailDto;
 import com.sesacthon.foreco.trash.dto.RelevantTrashesDto;
 import com.sesacthon.foreco.trash.entity.TrashInfo;
 import com.sesacthon.foreco.trash.exception.RelatedTrashNotFoundException;

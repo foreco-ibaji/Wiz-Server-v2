@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
@@ -35,6 +34,6 @@ public class RegionCategory {
   private Region region;
 
   @OneToMany(mappedBy = "regionCategory")
-  private List<Disposal> disposals = new ArrayList<Disposal>();
+  private List<Disposal> disposals = new ArrayList<>();
 
 }
