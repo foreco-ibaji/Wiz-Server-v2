@@ -1,6 +1,5 @@
 package com.sesacthon.foreco.trash.controller;
 
-
 import com.sesacthon.foreco.trash.dto.RelevantTrashesDto;
 import com.sesacthon.foreco.trash.dto.TrashDetailDto;
 import com.sesacthon.foreco.trash.service.TrashService;

@@ -1,12 +1,16 @@
 package com.sesacthon.foreco.mock;
 
 
+<<<<<<< HEAD
 import com.sesacthon.foreco.mock.dto.DisposalInfoDto;
+=======
+import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
+import com.sesacthon.foreco.disposal.dto.response.TodayDisposableCategoriesDto;
+>>>>>>> 1fe898c0d289cd756b781aecb2211a62961f3fd7
 import com.sesacthon.foreco.mock.dto.RelevantTrashDto;
 import com.sesacthon.foreco.mock.dto.RelevantTrashesDto;
 import com.sesacthon.foreco.mock.dto.SearchedTrashDto;
 import com.sesacthon.foreco.mock.dto.SearchedTrashesDto;
-import com.sesacthon.foreco.mock.dto.TodayDisposableCategoriesDto;
 import com.sesacthon.foreco.mock.dto.TrashDetailDto;
 import com.sesacthon.global.response.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
