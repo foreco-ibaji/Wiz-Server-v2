@@ -47,15 +47,14 @@ public class Trash {
   private String trashIcon;
 
   /**
-   * 상위 카테고리 Id.
-   * 해당 데이터가 상위 카테고리라면 null
+   * 상위 카테고리 Id. 해당 데이터가 상위 카테고리라면 null
    */
   @ManyToOne(fetch = LAZY)
   @JoinColumn(name = "trash_id")
   private Trash parentTrash;
 
   @OneToMany(mappedBy = "parentTrash")
-  private List<Trash> childCategories;
+  private List<Trash> childTrashes;
 
   /**
    * 배출정보(trashInfo)
@@ -67,5 +66,5 @@ public class Trash {
    * 지역 카테고리(RegionCategory)
    */
   @OneToMany(mappedBy = "trash")
-  List<RegionCategory> regionCategories= new ArrayList<RegionCategory>();
+  List<RegionCategory> regionCategories = new ArrayList<RegionCategory>();
 }

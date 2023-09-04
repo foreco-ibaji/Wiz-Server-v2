@@ -34,10 +34,10 @@ public class TrashInfo {
   private String method;
 
   /**
-   * 쓰레기 처리형태 (=detail type)
+   * 쓰레기 처리형태
    */
-  @Convert(converter = DisposalTypeConverter.class)
-  private DisposalType disposalType;
+//  @Convert(converter = DisposalTypeConverter.class)
+//  private DisposalType disposalType;
 
   /**
    * 쓰레기 카테고리
