@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface TrashInfoRepository extends JpaRepository<TrashInfo, Long> {
 
   Optional<TrashInfo> findByTrashIdAndRegionId(Long trashId, Long regionId);
+
+//  Optional<TrashInfo> findByIdAndRegionId(Long id, Long regionId);
+
 }

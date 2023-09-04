@@ -1,21 +1,25 @@
-package com.sesacthon.foreco.mock.dto;
+package com.sesacthon.foreco.trash.dto;
 
-import com.sesacthon.foreco.mock.DetailType;
+
+import com.sesacthon.foreco.category.entity.ViewType;
+import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class TrashDetailDto {
 
   private final Long id;
-  private final DetailType detailType;
+  private final ViewType detailType;
   private final String name;
   private final String disposalMethod;
-  private final DisposalInfoDto disposalInfoDto; //기존에 있는 DTO 사용!
+  private final DisposalInfoDto disposalInfoDto;
   private final List<String> remark;
   private final String iconUrl;
 
-  public TrashDetailDto(Long id, DetailType detailType, String name, String disposalMethod,
+  public TrashDetailDto(Long id, ViewType detailType, String name, String disposalMethod,
       DisposalInfoDto disposalInfoDto, List<String> remark, String iconUrl) {
     this.id = id;
     this.detailType = detailType;

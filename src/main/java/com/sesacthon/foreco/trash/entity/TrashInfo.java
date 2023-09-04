@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -50,5 +52,9 @@ public class TrashInfo {
   @ManyToOne
   @JoinColumn(name = "region_id")
   private Region region;
+
+  @OneToMany(mappedBy = "trashInfo")
+  private List<Remark> remarks;
+
 
 }
