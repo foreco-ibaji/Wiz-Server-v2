@@ -55,9 +55,10 @@ public class TrashService {
     return new RelevantTrashesDto(trashInfos);
   }
 
-//  public TrashDetailDto getTrashDetail(Long id, Long regionId) {
-//    Optional<TrashInfo> trashInfo = trashInfoRepository.findByIdAndRegionId(id,regionId);
-//    log.info("trashInfo{}",trashInfo.get().getId());
-//    return null;
-//  }
+
+  public TrashDetailDto getTrashDetail(Long id, Long regionId) {
+    Optional<TrashInfo> trashInfo = trashInfoRepository.findByIdAndRegionId(id,regionId);
+    log.info("trashInfo{}",trashInfo.get().getId());
+    return null;
+  }
 }

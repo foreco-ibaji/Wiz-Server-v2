@@ -24,14 +24,14 @@ public class TrashController {
   private final TrashService trashService;
   private static final Long REGION_ID = 1L; //지역이 현재 동대문구 전농1동이므로 고정하여 작업함.
 
-//  @Operation(summary = "쓰레기 상세 조회 API", description = "쓰레기 상세조회 API 입니다.")
-//  @GetMapping("/api/v1/trash/detail")
-//  public ResponseEntity<DataResponse<TrashDetailDto>> getTrashDetails(@RequestParam("id") Long id){
-//
-//    TrashDetailDto response = trashService.getTrashDetail(id,REGION_ID);
-//    return new ResponseEntity<>(
-//        DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
-//  }
+  @Operation(summary = "쓰레기 상세 조회 API", description = "쓰레기 상세조회 API 입니다.")
+  @GetMapping("/api/v1/trash/detail")
+  public ResponseEntity<DataResponse<TrashDetailDto>> getTrashDetails(@RequestParam("id") Long id){
+
+    TrashDetailDto response = trashService.getTrashDetail(id,REGION_ID);
+    return new ResponseEntity<>(
+        DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
+  }
 
 
   @Operation(summary = "쓰레기 상세 조회시 필요한, 관련된 쓰레기 정보 조회API", description = "쓰레기 상세조회 화면에서 제공되야할 관련된 쓰레기들 입니다.")
