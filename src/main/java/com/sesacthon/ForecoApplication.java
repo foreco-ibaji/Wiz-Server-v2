@@ -13,7 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableJpaRepositories(basePackages = "com.sesacthon.foreco")
-@OpenAPIDefinition(servers = {@Server(url = "https://foreco.store", description = "Default Server URL")})
+@OpenAPIDefinition(servers = {@Server(url = "https://foreco.store", description = "Default Server URL"),
+                              @Server(url = "http://localhost:8080", description = "Generated Server URL")})
 public class ForecoApplication {
 
   public static void main(String[] args) {

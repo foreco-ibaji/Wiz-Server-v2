@@ -22,14 +22,16 @@ public class DisposalService {
 
   public TodayDisposableCategoriesDto getDisposalInfo(String day) {
     //1. regionId로 묶여있는 지역카테고리 Id들을 가져온다.
-    List<RegionCategory> regionCategories = regionCategoryRepository.findByRegionId(REGION_ID);
+    List<RegionCategory> regionCategories = regionCategoryRepository.findRegionCategories(REGION_ID);
 
-    //2. 카테고리 리스트들 중에서 day와 일치하는 품목을 리스트에 넣는다.
+    //2. 요청 파라미터로 받은 요일이 배출가능 요일 목록에 포함되어 있으면 카테고리 이름을 가져온다.
+    //TODO: 쿼리 최적화 필요
     List<String> resultInfo = regionCategories.stream()
-        .filter(regionCategory -> day.equals(
-            //TODO: 쿼리 최적화 필요
-            disposalRepository.findByRegionCategoryId(regionCategory.getId()).getDisposableDay()))
-        .map(regionCategory -> regionCategory.getTrash().getName())
+        .filter(category -> {
+          List<String> disposableDays = disposalRepository.findDisposalInfos(category.getId());
+          return disposableDays.contains(day);
+        })
+        .map(category -> category.getTrash().getName())
         .collect(Collectors.toList());
 
     return new TodayDisposableCategoriesDto(resultInfo);

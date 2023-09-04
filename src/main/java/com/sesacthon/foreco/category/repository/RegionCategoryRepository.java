@@ -9,5 +9,5 @@ import org.springframework.data.repository.query.Param;
 public interface RegionCategoryRepository extends JpaRepository<RegionCategory, Long> {
 
   @Query("select rc from RegionCategory rc join fetch rc.trash where rc.region.id = :regionId")
-  List<RegionCategory> findByRegionId(@Param("regionId") Long regionId);
+  List<RegionCategory> findRegionCategories(@Param("regionId") Long regionId);
 }
