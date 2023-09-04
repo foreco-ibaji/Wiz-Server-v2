@@ -7,11 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
 
 /**
  * 유의사항 테이블
  */
 @Entity
+@Getter
 public class Remark {
 
   @Id
@@ -20,6 +22,9 @@ public class Remark {
 
   private String description;
 
+  /**
+   * remark(유의사항)
+   */
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "trash_info_id")
   private TrashInfo trashInfo;

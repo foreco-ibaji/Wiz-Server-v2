@@ -1,7 +1,8 @@
 package com.sesacthon.foreco.trash.controller;
 
-import com.sesacthon.foreco.mock.dto.TrashDetailDto;
+
 import com.sesacthon.foreco.trash.dto.RelevantTrashesDto;
+import com.sesacthon.foreco.trash.dto.TrashDetailDto;
 import com.sesacthon.foreco.trash.service.TrashService;
 import com.sesacthon.global.response.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,13 +27,12 @@ public class TrashController {
 
   @Operation(summary = "쓰레기 상세 조회 API", description = "쓰레기 상세조회 API 입니다.")
   @GetMapping("/api/v1/trash/detail")
-  public ResponseEntity<DataResponse<TrashDetailDto>> getTrashDetails(@RequestParam("id") Long id){
+  public ResponseEntity<DataResponse<TrashDetailDto>> getTrashDetails(@RequestParam("id") Long id) {
 
-    TrashDetailDto response = trashService.getTrashDetail(id,REGION_ID);
+    TrashDetailDto response = trashService.getTrashDetail(id, REGION_ID);
     return new ResponseEntity<>(
-        DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
+        DataResponse.of(HttpStatus.OK, "쓰레기 상세조회 성공", response), HttpStatus.OK);
   }
-
 
   @Operation(summary = "쓰레기 상세 조회시 필요한, 관련된 쓰레기 정보 조회API", description = "쓰레기 상세조회 화면에서 제공되야할 관련된 쓰레기들 입니다.")
   @GetMapping("api/v1/trash/relation")
@@ -43,6 +43,4 @@ public class TrashController {
     return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "관련(추천) 쓰레기 정보 조회 성공", response),
         HttpStatus.OK);
   }
-
-
 }

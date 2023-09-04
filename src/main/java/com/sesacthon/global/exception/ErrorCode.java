@@ -24,7 +24,6 @@ public enum ErrorCode {
   // JWT
   REFRESH_JWT_EXPIRED(HttpStatus.UNAUTHORIZED, "J003", "만료된 리프레시 토큰입니다."),
 
-
   /**
    * 도메인(entity)에 따른 에러코드 - 추가 예정
    */
@@ -47,7 +46,12 @@ public enum ErrorCode {
   NOT_VALID_REGION_TYPE(HttpStatus.BAD_REQUEST, "R002", "입력 값의 타입이 올바르지 않습니다. 예시)서울시 동대문구 전능1동"),
 
   //동기부여(Motivation)
-  MOTIVATION_NOT_FOUND(HttpStatus.BAD_REQUEST, "M001", "현재 쓰레기 관련 동기부여 정보가 없습니다.");
+  MOTIVATION_NOT_FOUND(HttpStatus.BAD_REQUEST, "M001", "현재 쓰레기 관련 동기부여 정보가 없습니다."),
+
+  //배출정보(Disposal)
+
+  DISPOSAL_NOT_FOUND(HttpStatus.BAD_REQUEST,"D001", "현재 조회 가능한 배출 정보가 없습니다.");
+
 
   private final HttpStatus status;
   private final String code;

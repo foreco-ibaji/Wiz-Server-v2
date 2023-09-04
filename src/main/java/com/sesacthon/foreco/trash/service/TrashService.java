@@ -1,16 +1,19 @@
 package com.sesacthon.foreco.trash.service;
 
+import com.sesacthon.foreco.category.entity.RegionCategory;
 import com.sesacthon.foreco.category.entity.Trash;
+import com.sesacthon.foreco.category.repository.RegionCategoryRepository;
 import com.sesacthon.foreco.category.repository.TrashRepository;
+import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
+import com.sesacthon.foreco.disposal.entity.Disposal;
 import com.sesacthon.foreco.disposal.repository.DisposalRepository;
-
-import com.sesacthon.foreco.mock.dto.TrashDetailDto;
 import com.sesacthon.foreco.trash.dto.RelevantTrashesDto;
+import com.sesacthon.foreco.trash.dto.TrashDetailDto;
 import com.sesacthon.foreco.trash.entity.TrashInfo;
 import com.sesacthon.foreco.trash.exception.RelatedTrashNotFoundException;
+import com.sesacthon.foreco.trash.exception.DisposalNotFoundException;
 import com.sesacthon.foreco.trash.exception.TrashNotFoundException;
 import com.sesacthon.foreco.trash.repository.TrashInfoRepository;
-
 import com.sesacthon.global.exception.ErrorCode;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class TrashService {
   private final TrashInfoRepository trashInfoRepository;
   private final DisposalRepository disposalRepository;
   private final TrashRepository trashRepository;
+  private final RegionCategoryRepository regionCategoryRepository;
 
 
   public RelevantTrashesDto getRelevantTrashes(Long id, Long regionId) {
@@ -55,11 +59,32 @@ public class TrashService {
     return new RelevantTrashesDto(trashInfos);
   }
 
-
   public TrashDetailDto getTrashDetail(Long id, Long regionId) {
-    Optional<TrashInfo> trashInfo = trashInfoRepository.findByIdAndRegionId(id,regionId);
-    log.info("trashInfo{}",trashInfo.get().getId());
-    return null;
+    //TrashInfo의 id를 통해, 객체를 가져옴
+    TrashInfo trashInfo = trashInfoRepository.findByIdAndRegionId(id, regionId)
+        .orElseThrow(() -> new TrashNotFoundException(ErrorCode.TRASH_NOT_FOUND));
+
+    //매핑된 trash
+    Trash trash = trashInfo.getTrash();
+
+    //배출 정보를 가져옴
+    List<Disposal> disposals = getDisposals(regionId, trash);
+
+    TrashDetailDto trashDetailDto = new TrashDetailDto(trashInfo.getId(), trash.getViewType(),
+        trash.getName(), trashInfo.getMethod(), new DisposalInfoDto(disposals),
+        trashInfo.getRemarks().stream().map(remark -> remark.getDescription()).toList(),
+        trash.getTrashIcon());
+
+    return trashDetailDto;
+
+  }
+
+  private List<Disposal> getDisposals(Long regionId, Trash trash) {
+    Long parentTrashId = trash.getParentTrash().getId();
+    RegionCategory regionCategory = regionCategoryRepository.findByTrashIdAndRegionId(parentTrashId,
+        regionId).orElseThrow(() -> new DisposalNotFoundException(ErrorCode.DISPOSAL_NOT_FOUND));
+    List<Disposal> disposals = regionCategory.getDisposals();
+    return disposals;
   }
 
 }

@@ -12,28 +12,24 @@ import lombok.Getter;
 @Getter
 public class DisposalInfoDto {
 
-  // private final List<String> days 로 올려야 한다.
   private final List<String> days;
   private final String time;
 
-  //mock api작업을 위해 생성한 생성자
-  public DisposalInfoDto() {
-    this.days = Arrays.asList("월", "수", "금");
-    this.time = "18:00 ~ 21:00";
-  }
-
-//  public DisposalInfoDto(Disposal disposal) {
-//    this.day = disposal.getDay();
-//    this.time = disposal.getTime();
-//  }
-
   public DisposalInfoDto(List<Disposal> disposals) {
-    this.days = new ArrayList<>();
-    for(Disposal disposal : disposals){
+    List<String> days = new ArrayList<>();
+    for (Disposal disposal : disposals) {
       days.add(disposal.getDisposableDay());
     }
+    this.days = days;
     this.time = disposals.get(0).getDisposableTime();
-
+    //TODO
+    /**
+     * 저희 ui랑 api랑 기존까지 작업에서 모든 배출요일의 시간이 동일하다는 가정하에 작업이 되어있어서.
+     * 우선 기존 방식에 영향이 가지 않도록 코드를 구성했습니다.
+     * 이번에 수정했던 disposal테이블 처럼, 배출 요일별로 시간이 다른 경우를 사용자게에 보여주기 위해서 UI부터 ~ api응답까지 봐꿔야 할것 같아요.
+     * 시간이 없으니 제출 이후에 다같이 이야기 해보는게 좋을것 같습니다.
+     */
   }
+
 
 }

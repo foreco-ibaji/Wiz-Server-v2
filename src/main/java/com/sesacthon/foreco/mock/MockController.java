@@ -1,7 +1,7 @@
 package com.sesacthon.foreco.mock;
 
 
-import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
+import com.sesacthon.foreco.mock.dto.DisposalInfoDto;
 import com.sesacthon.foreco.mock.dto.RelevantTrashDto;
 import com.sesacthon.foreco.mock.dto.RelevantTrashesDto;
 import com.sesacthon.foreco.mock.dto.SearchedTrashDto;
@@ -71,7 +71,8 @@ public class MockController {
     if (id == 1L) {
       TrashDetailDto response = new TrashDetailDto(1L, DetailType.MAP, "지도/폐건전지",
           "폐건전지는 전용 수거함에 버려주세요. 가까운 곳에 폐건전지 수거함이 없다면, 주민센터를 활용하여 버릴수 있어요.", new DisposalInfoDto(),
-          Arrays.asList(" "),"https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
+          Arrays.asList(" "),
+          "https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
       return new ResponseEntity<>(
           DataResponse.of(HttpStatus.OK, "detailType = map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
     }
@@ -81,7 +82,8 @@ public class MockController {
           "소파는 지자체 신고후, 스티커 또는 예약 번호를 적어서 대형 생활 폐기물로 신고배출해주세요.", new DisposalInfoDto(),
           Arrays.asList("집밖으로 배출시에는 등받이, 쿠션등이 떨어지지 않도록 테이프, 끈으로 고정해주세요",
               "대형 생활폐기물 신고 및 수거는 유료이며, 가구의 크기에 따라 2,000원 ~ 10,000원 가량 부과됩니다.",
-              "시터커를 발급받지 않고 길거리, 야산, 쓰레기 수거장소에 몰래 버릴경우 수거가 되지 않으며, 무단 투기로 간주되어 폐기물관리법에 의해 100만원 이하의 과태료가 부과됩니다."),"https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
+              "시터커를 발급받지 않고 길거리, 야산, 쓰레기 수거장소에 몰래 버릴경우 수거가 되지 않으며, 무단 투기로 간주되어 폐기물관리법에 의해 100만원 이하의 과태료가 부과됩니다."),
+          "https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
       return new ResponseEntity<>(
           DataResponse.of(HttpStatus.OK, "detailType = map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
     }
@@ -89,7 +91,8 @@ public class MockController {
     TrashDetailDto response = new TrashDetailDto(3L, DetailType.BASIC, "일반/계란껍데기",
         "계란의 단단한 껍질은 종량제 쓰레기 봉투에 담아 배출해주세요.", new DisposalInfoDto(),
         Arrays.asList("날달걀, 삶은 달걍 등이 상했다면 껍데기를 까서 계란 속은 음식물 쓰레기로 버리고,단단한 껍질만 일반쓰레기(종량제 봉투)로 버려주세요.",
-            "껍질 속을 물로 한번 헹궈서 버리면 쓰레기 봉투 안에서 썩거나 벌레가 생기는 걸 막을 수 있어서 도움이 될 수 있어요."),"https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
+            "껍질 속을 물로 한번 헹궈서 버리면 쓰레기 봉투 안에서 썩거나 벌레가 생기는 걸 막을 수 있어서 도움이 될 수 있어요."),
+        "https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
     return new ResponseEntity<>(
         DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
 

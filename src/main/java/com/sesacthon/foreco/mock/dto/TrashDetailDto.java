@@ -1,7 +1,5 @@
 package com.sesacthon.foreco.mock.dto;
 
-
-import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
 import com.sesacthon.foreco.mock.DetailType;
 import java.util.List;
 import lombok.Getter;
