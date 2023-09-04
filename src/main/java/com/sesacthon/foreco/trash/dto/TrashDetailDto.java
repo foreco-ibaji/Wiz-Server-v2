@@ -4,9 +4,11 @@ package com.sesacthon.foreco.trash.dto;
 import com.sesacthon.foreco.category.entity.ViewType;
 import com.sesacthon.foreco.disposal.dto.response.DisposalInfoDto;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class TrashDetailDto {
 
   private final Long id;

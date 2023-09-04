@@ -60,20 +60,23 @@ public class TrashService {
   }
 
   public TrashDetailDto getTrashDetail(Long id, Long regionId) {
-    //TrashInfo의 id를 통해, 객체를 가져옴
-    TrashInfo trashInfo = trashInfoRepository.findByIdAndRegionId(id, regionId)
+    //id로 trash 객체를 가져옴
+    Trash trash = trashRepository.findById(id)
         .orElseThrow(() -> new TrashNotFoundException(ErrorCode.TRASH_NOT_FOUND));
 
-    //매핑된 trash
-    Trash trash = trashInfo.getTrash();
+    //trashInfo가져옴
+    TrashInfo trashInfo = trashInfoRepository.findByTrashIdAndRegionId(trash.getId(), regionId)
+        .orElseThrow(() -> new TrashNotFoundException(ErrorCode.TRASH_NOT_FOUND));
 
     //배출 정보를 가져옴
     List<Disposal> disposals = getDisposals(regionId, trash);
 
-    TrashDetailDto trashDetailDto = new TrashDetailDto(trashInfo.getId(), trash.getViewType(),
-        trash.getName(), trashInfo.getMethod(), new DisposalInfoDto(disposals),
-        trashInfo.getRemarks().stream().map(remark -> remark.getDescription()).toList(),
-        trash.getTrashIcon());
+    TrashDetailDto trashDetailDto = TrashDetailDto.builder()
+        .id(trash.getId())
+        .detailType(trash.getViewType()).name(trash.getName()).disposalMethod(trashInfo.getMethod())
+        .disposalInfoDto(new DisposalInfoDto(disposals))
+        .remark(trashInfo.getRemarks().stream().map(remark -> remark.getDescription()).toList())
+        .iconUrl(trash.getTrashIcon()).build();
 
     return trashDetailDto;
 
