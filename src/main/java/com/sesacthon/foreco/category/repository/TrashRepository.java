@@ -13,6 +13,6 @@ public interface TrashRepository extends JpaRepository<Trash, Long> {
   List<Trash> searchTrashWithKeyword(
       @Param("categoryId") Long categoryId, @Param("keyword") String keyword);
 
-  //keyword와 동일한 name을 가지고 있으며, parentTrash가  null이 아닌 경우를 찾음.
-  Optional<Trash> findByNameAndParentTrashIsNotNull(String keyword);
+  //keyword를 포함한 name이며, parentTrash가  null이 아닌 경우를 찾음.
+  Optional<Trash> findByNameContainingAndParentTrashIsNotNull(String keyword);
 }

@@ -162,8 +162,7 @@ public class S3Uploader {
     //단일 재질인 경우에도, 조회가 가능한 데이터인지 판단
     int endIndex = resultValue.indexOf(",");
     String keyword = resultValue.substring(2, endIndex);
-    Optional<Trash> trash = trashRepository.findByNameAndParentTrashIsNotNull(
-        keyword);   //keyword와 동일한 name을 가지고 있으며, parentTrash가  null이 아닌 경우를 찾음.
+    Optional<Trash> trash = trashRepository.findByNameContainingAndParentTrashIsNotNull(keyword);   //keyword를 포함한 name이며, parentTrash가  null이 아닌 경우를 찾음.
     if (trash.isPresent()) {
       return trash.get().getId();
     } else {
