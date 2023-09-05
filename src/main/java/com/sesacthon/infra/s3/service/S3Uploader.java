@@ -145,7 +145,7 @@ public class S3Uploader {
 
       String resultValue = removeEscape(response.toString());
       //단일 품목이며, 조회가 가능한 품목인 경우 상세조회할 trash의 id를 반환함.
-      trashId = judgeItCanSeacrh(resultValue);
+      trashId = judgeItCanBeSearched(resultValue);
       return new UploadDto("AI 서버에 이미지 전송 성공", resultValue, trashId);
     } else {
       // 전달 실패
@@ -153,7 +153,7 @@ public class S3Uploader {
     }
   }
 
-  private Long judgeItCanSeacrh(String resultValue) {
+  private Long judgeItCanBeSearched(String resultValue) {
     //단일 재질인지 판단
     if (resultValue.contains("],[")) {
       return -1L;
