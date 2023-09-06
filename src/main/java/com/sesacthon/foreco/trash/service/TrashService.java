@@ -52,13 +52,6 @@ public class TrashService {
       throw new RelatedTrashNotFoundException(ErrorCode.RELATED_TRASH_NOT_FOUND);
     }
 
-//    List<TrashInfo> trashInfos = new ArrayList<>();
-//    for (Trash childTrash : childTrashes) {
-//      Optional<TrashInfo> trashInfo = trashInfoRepository.findByTrashIdAndRegionId(
-//          childTrash.getId(), regionId);
-//      trashInfo.ifPresent(trashInfos::add);
-//    }
-
     List<RelevantTrashDto> trashes = childTrashes.stream()
         .map((trash) -> {
           String iconUrl = s3Downloader.getIconUrl(trash.getTrashIcon().getIconFile());
@@ -105,10 +98,10 @@ public class TrashService {
   public SearchedTrashesDto searchTrashWithKeyword(Long regionId, String keyword) {
     //1. regionId를 가지고, categoryList들을 가져온다.
     List<Long> categoryIds = regionCategoryRepository.findCategoryIdsByRegionId(regionId);
-    List<Trash> allTrashes= new ArrayList<>();
+    List<Trash> allTrashes = new ArrayList<>();
 
     //2. categoryId 중, 해당 Id를 외래키로 가지는 쓰레기 목록중에서 keyword를 포함하는 결과를 가져온다.
-    for(Long category : categoryIds) {
+    for (Long category : categoryIds) {
       List<Trash> trashes = trashRepository.searchTrashWithKeyword(category, keyword);
       allTrashes.addAll(trashes);
     }
