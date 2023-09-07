@@ -20,7 +20,7 @@
 - Java17 + Spring boot 3.1 + Spring Data JPA
 - Spring Security + JWT + Redis + Spring Cloud OpenFeign
 - RDS(MySQL), aws DynamoDB
-- Docekr + Nginx + Github Actions
+- Docker + Nginx + Github Actions
 - S3 + aws sdk for java
 
 ## ✅ 아키텍처
