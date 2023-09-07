@@ -21,7 +21,10 @@ spring:
     password: ${DATABASE_PASSWORD}
     hikari:
       maximum-pool-size: 30
-
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   jpa:
     hibernate:
       ddl-auto: none
