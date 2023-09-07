@@ -29,9 +29,9 @@ REQUEST=$(curl http://127.0.0.1:8080)
           fi
 done;
 
-echo "nginx conf 파일 교체"
-sudo cp ./nginx.green.conf /etc/nginx/nginx.conf
-sudo nginx -s reload
+#echo "nginx conf 파일 교체"
+#sudo cp ./nginx.green.conf /etc/nginx/nginx.conf
+#sudo nginx -s reload
 
 
 docker-compose stop blue
