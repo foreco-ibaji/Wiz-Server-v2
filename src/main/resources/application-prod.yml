@@ -21,6 +21,7 @@ spring:
     password: ${DATABASE_PASSWORD}
     hikari:
       maximum-pool-size: 30
+      max-lifetime: 60000000
   servlet:
     multipart:
       max-file-size: 10MB
