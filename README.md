@@ -17,7 +17,11 @@
      - squash & merge 방식으로 커밋을 깔끔하게 관리합니다.
 
 ## ✅ 기술스택
-![image](https://github.com/foreco-ibaji/Wiz-backend/assets/85207194/7e99937b-29cd-43ce-a7a2-b960a0862df2)
+- Java17 + Spring boot 3.1 + Spring Data JPA
+- Spring Security + JWT + Redis + Spring Cloud OpenFeign
+- RDS(MySQL), aws DynamoDB
+- Docekr + Nginx + Github Actions
+- S3 + aws sdk for java
 
 ## ✅ 아키텍처
 ![아키텍처](https://github.com/foreco-ibaji/Wiz-backend/assets/85207194/2bef0f31-c845-4dbd-895f-014e3ce4eada)
