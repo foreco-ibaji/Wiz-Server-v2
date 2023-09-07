@@ -40,22 +40,16 @@ public class S3Controller {
   @PostMapping(value = "/api/v1/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<DataResponse<UploadDto>> uploadEventImg(
       HttpServletRequest request,
-      HttpServletResponse response,
       HttpMethod httpMethod,
       Locale locale /*언어 정보로, 가장 우선순위가 높은 것을 받는다.*/,
       @RequestHeader MultiValueMap<String, String> headerMap /*헤더의 속성값을 키와 벨류로 받는다.*/,
-      @RequestHeader("host") String host/*특정한 값만 받는다.*/,
-      @CookieValue(value = "myCookie", required = false) String cookie,
       @RequestPart("img") MultipartFile multipartFile
       ) throws IOException {
 
     log.info("request={}", request);
-    log.info("response={}", response);
     log.info("httpMethod={}", httpMethod);
     log.info("locale={}", locale);
     log.info("headerMap={}", headerMap);
-    log.info("header host={}", host);
-    log.info("myCookie={}", cookie);
 
     UploadDto uploadDto = s3Uploader.sendToAiServer(multipartFile);
     return new ResponseEntity<>(
