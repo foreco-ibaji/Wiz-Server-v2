@@ -44,12 +44,23 @@ public class S3Controller {
       Locale locale /*언어 정보로, 가장 우선순위가 높은 것을 받는다.*/,
       @RequestHeader MultiValueMap<String, String> headerMap /*헤더의 속성값을 키와 벨류로 받는다.*/,
       @RequestPart("img") MultipartFile multipartFile
-      ) throws IOException {
+  ) throws IOException {
 
     log.info("request={}", request);
     log.info("httpMethod={}", httpMethod);
     log.info("locale={}", locale);
     log.info("headerMap={}", headerMap);
+
+    UploadDto uploadDto = s3Uploader.sendToAiServer(multipartFile);
+    return new ResponseEntity<>(
+        DataResponse.of(HttpStatus.CREATED, "촬영 이미지 업로드 성공", uploadDto), HttpStatus.CREATED);
+  }
+
+  @Operation(summary = "카메라로 쓰레기 분석test", description = "촬영 사진을 요청하면 AI 모델의 분석 결과값을 확인할 수 있습니다.")
+  @PostMapping(value = "/api/v1/image/test", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<DataResponse<UploadDto>> uploadEventImgtest(
+      @RequestPart("img") MultipartFile multipartFile
+  ) throws IOException {
 
     UploadDto uploadDto = s3Uploader.sendToAiServer(multipartFile);
     return new ResponseEntity<>(
