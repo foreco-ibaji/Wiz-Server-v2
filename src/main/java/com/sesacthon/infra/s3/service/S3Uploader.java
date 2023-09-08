@@ -161,6 +161,9 @@ public class S3Uploader {
 
     //단일 재질인 경우에도, 조회가 가능한 데이터인지 판단
     int endIndex = resultValue.indexOf(",");
+    if(endIndex < 0){    //ai응답 값부터 확인해봐야함
+      return -1L;
+    }
     String keyword = resultValue.substring(2, endIndex);
     Optional<Trash> trash = trashRepository.findByNameContainingAndParentTrashIsNotNull(keyword);   //keyword를 포함한 name이며, parentTrash가  null이 아닌 경우를 찾음.
     if (trash.isPresent()) {
