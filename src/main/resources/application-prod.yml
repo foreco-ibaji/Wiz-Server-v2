@@ -21,14 +21,10 @@ spring:
     password: ${DATABASE_PASSWORD}
     hikari:
       maximum-pool-size: 30
-      max-lifetime: 60000000
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
+
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -67,7 +63,6 @@ oauth2:
     baseUrl: https://kauth.kakao.com
     clientId: dd6c51dc02204dacd84d70e52a877d8f
     #TODO: 실제 배포 도메인 주소로 바꿔야 함
-    redirectUri: https://foreco.store/api/v1/account/kakao/result
     secretKey: ${SECRET_KEY}
 
 ai:
