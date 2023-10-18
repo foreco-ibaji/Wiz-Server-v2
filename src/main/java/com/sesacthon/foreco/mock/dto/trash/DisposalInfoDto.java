@@ -1,4 +1,4 @@
-package com.sesacthon.foreco.mock.dto;
+package com.sesacthon.foreco.mock.dto.trash;
 
 import java.util.Arrays;
 import java.util.List;

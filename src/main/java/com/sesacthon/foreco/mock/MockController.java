@@ -1,17 +1,21 @@
 package com.sesacthon.foreco.mock;
 
-import com.sesacthon.foreco.mock.dto.DisposalInfoDto;
+import com.sesacthon.foreco.mock.dto.mission.MissionDetailDto;
+import com.sesacthon.foreco.mock.dto.mission.MissionDto;
+import com.sesacthon.foreco.mock.dto.trash.DisposalInfoDto;
 import com.sesacthon.foreco.disposal.dto.response.TodayDisposableCategoriesDto;
-import com.sesacthon.foreco.mock.dto.RelevantTrashDto;
-import com.sesacthon.foreco.mock.dto.RelevantTrashesDto;
-import com.sesacthon.foreco.mock.dto.TrashDetailDto;
+import com.sesacthon.foreco.mock.dto.trash.RelevantTrashDto;
+import com.sesacthon.foreco.mock.dto.trash.RelevantTrashesDto;
+import com.sesacthon.foreco.mock.dto.trash.TrashDetailDto;
 import com.sesacthon.foreco.trash.dto.SearchedTrashDto;
 import com.sesacthon.foreco.trash.dto.SearchedTrashesDto;
 import com.sesacthon.global.response.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -94,7 +98,27 @@ public class MockController {
         "https://static.wikia.nocookie.net/shinchan/images/3/36/%EC%8B%A0%EC%A7%B1%EC%95%84.jpg/revision/latest?cb=20131021074814&path-prefix=ko");
     return new ResponseEntity<>(
         DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
+  }
 
-
+  @Operation(summary = "미션 목록 조회 api", description = "미션 목록을 조회하는 api 입니다.")
+  @GetMapping("mock/api/v1/mission")
+  public ResponseEntity<DataResponse<MissionDto>> getMission(
+      @RequestParam(name = "kind", required = false) String kind,
+      @RequestParam(name = "difficulty", required = false) String difficulty) {
+    MissionDetailDto mission1 = MissionDetailDto.builder().id(1).kind("WIZ").title("쓰레기 퍼즐 맞추기")
+        .description("조각난 쓰레기 퍼즐을 보고배출방법 맞추기").difficulty("LOW").missionPoint(2000)
+        .totalOpportunity(100).totalNumberOfParticipating(10).numberOfParticipating(0)
+        .limitPerPerson(5).iconUrl("url")
+        .build();
+    MissionDetailDto mission2 = MissionDetailDto.builder().id(2).kind("WIZ").title("쓰레기 멀리 던지기")
+        .description("쓰레기를 멀리 던진다.").difficulty("LOW").missionPoint(2000).totalOpportunity(100)
+        .totalNumberOfParticipating(10).numberOfParticipating(1).limitPerPerson(5).iconUrl("url")
+        .build();
+    List<MissionDetailDto> missions = new ArrayList<>();
+    missions.add(mission1);
+    missions.add(mission2);
+    MissionDto response = new MissionDto(missions);
+    return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "미션 조회 성공", response),
+        HttpStatus.OK);
   }
 }
