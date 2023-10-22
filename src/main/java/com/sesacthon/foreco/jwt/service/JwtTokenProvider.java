@@ -10,13 +10,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.annotation.PostConstruct;
 import java.security.Key;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -125,23 +125,9 @@ public class JwtTokenProvider {
     return refreshToken;
   }
 
-  private Claims extractAllClaims(String token) {
-    try {
-      return Jwts.parserBuilder().setSigningKey(secretKey).build()
-          .parseClaimsJws(token).getBody();
-    } catch (ExpiredJwtException e) {
-      return e.getClaims();
-    }
-  }
-
-  public boolean isTokenExpirationSafe(String token) {
-    Instant expiration = extractAllClaims(token).getExpiration().toInstant();
-    Instant now = Instant.now();
-    return hasTokenExpMoreThanThreeDays(expiration, now);
-  }
-
-  private boolean hasTokenExpMoreThanThreeDays(Instant expiration, Instant now) {
-    return (Duration.between(now, expiration).compareTo(Duration.ofDays(3)) >= 0);
+  public Claims extractAllClaims(String token) throws ExpiredJwtException, MalformedJwtException, SignatureException {
+    return Jwts.parserBuilder().setSigningKey(secretKey).build()
+        .parseClaimsJws(token).getBody();
   }
 
   public void saveRefreshTokenInRedis(Member member, String refreshToken) {
