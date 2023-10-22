@@ -25,13 +25,12 @@ public class JwtTokenReissueService {
   public ReIssueTokenDto reIssueToken(String refreshToken) {
     UUID memberId = redisService.findMemberByToken(refreshToken);
     Member member = memberService.getMemberById(memberId);
-    String newAccessToken = jwtTokenProvider.createAccessToken(memberId, member.getRole());
 
-    if(jwtTokenProvider.isTokenExpirationSafe(refreshToken)) {
-      return new ReIssueTokenDto(newAccessToken, refreshToken);
-    }
+    String newAccessToken = jwtTokenProvider.createAccessToken(memberId, member.getRole());
     String newRefreshToken = jwtTokenProvider.createRefreshToken(memberId);
+
     redisService.saveRefreshToken(memberId, newRefreshToken);
+
     return new ReIssueTokenDto(newAccessToken, newRefreshToken);
   }
 
