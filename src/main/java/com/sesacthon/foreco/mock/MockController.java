@@ -1,12 +1,13 @@
 package com.sesacthon.foreco.mock;
 
-import com.sesacthon.foreco.mock.dto.mission.MissionDetailDto;
-import com.sesacthon.foreco.mock.dto.mission.MissionDto;
-import com.sesacthon.foreco.mock.dto.trash.DisposalInfoDto;
+import com.sesacthon.foreco.mock.mission.dto.MissionDetailDto;
+import com.sesacthon.foreco.mock.mission.dto.MissionDto;
+import com.sesacthon.foreco.mock.trash.DetailType;
+import com.sesacthon.foreco.mock.trash.dto.DisposalInfoDto;
 import com.sesacthon.foreco.disposal.dto.response.TodayDisposableCategoriesDto;
-import com.sesacthon.foreco.mock.dto.trash.RelevantTrashDto;
-import com.sesacthon.foreco.mock.dto.trash.RelevantTrashesDto;
-import com.sesacthon.foreco.mock.dto.trash.TrashDetailDto;
+import com.sesacthon.foreco.mock.trash.dto.RelevantTrashDto;
+import com.sesacthon.foreco.mock.trash.dto.RelevantTrashesDto;
+import com.sesacthon.foreco.mock.trash.dto.TrashDetailDto;
 import com.sesacthon.foreco.trash.dto.SearchedTrashDto;
 import com.sesacthon.foreco.trash.dto.SearchedTrashesDto;
 import com.sesacthon.global.response.DataResponse;

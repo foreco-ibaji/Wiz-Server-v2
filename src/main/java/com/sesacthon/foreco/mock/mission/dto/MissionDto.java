@@ -1,4 +1,4 @@
-package com.sesacthon.foreco.mock.dto.mission;
+package com.sesacthon.foreco.mock.mission.dto;
 
 import java.util.List;
 import lombok.Getter;
