@@ -1,5 +1,7 @@
-package com.sesacthon.foreco.mock;
+package com.sesacthon.foreco.mock.trash;
 
+import com.sesacthon.foreco.mission.entity.Difficulty;
+import com.sesacthon.foreco.mission.entity.Kind;
 import com.sesacthon.foreco.mock.mission.dto.MissionDetailDto;
 import com.sesacthon.foreco.mock.mission.dto.MissionDto;
 import com.sesacthon.foreco.mock.trash.DetailType;
@@ -24,10 +26,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Mock API", description = "임시 api")
+@Tag(name = "Trash Mock API", description = "임시 api")
 @RestController
 @RequiredArgsConstructor
-public class MockController {
+public class TrashMockController {
 
   @Operation(summary = "금일 배출 가능한 품목 제공 API", description = "금일 배출가능한 품목을 조회합니다. 현재는 요일(day)에 관계없이 동일한 값을 반환합니다!")
   @GetMapping("mock/api/v1/category")
@@ -101,25 +103,28 @@ public class MockController {
         DataResponse.of(HttpStatus.OK, "detailType=map, 쓰레기 상세조회 성공", response), HttpStatus.OK);
   }
 
-  @Operation(summary = "미션 목록 조회 api", description = "미션 목록을 조회하는 api 입니다.")
-  @GetMapping("mock/api/v1/mission")
-  public ResponseEntity<DataResponse<MissionDto>> getMission(
-      @RequestParam(name = "kind", required = false) String kind,
-      @RequestParam(name = "difficulty", required = false) String difficulty) {
-    MissionDetailDto mission1 = MissionDetailDto.builder().id(1).kind("WIZ").title("쓰레기 퍼즐 맞추기")
-        .description("조각난 쓰레기 퍼즐을 보고배출방법 맞추기").difficulty("LOW").missionPoint(2000)
-        .totalOpportunity(100).totalNumberOfParticipating(10).numberOfParticipating(0)
-        .limitPerPerson(5).iconUrl("url")
-        .build();
-    MissionDetailDto mission2 = MissionDetailDto.builder().id(2).kind("WIZ").title("쓰레기 멀리 던지기")
-        .description("쓰레기를 멀리 던진다.").difficulty("LOW").missionPoint(2000).totalOpportunity(100)
-        .totalNumberOfParticipating(10).numberOfParticipating(1).limitPerPerson(5).iconUrl("url")
-        .build();
-    List<MissionDetailDto> missions = new ArrayList<>();
-    missions.add(mission1);
-    missions.add(mission2);
-    MissionDto response = new MissionDto(missions);
-    return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "미션 조회 성공", response),
-        HttpStatus.OK);
-  }
+//  @Operation(summary = "미션 목록 조회 api", description = "미션 목록을 조회하는 api 입니다.")
+//  @GetMapping("mock/api/v1/mission")
+//  public ResponseEntity<DataResponse<MissionDto>> getMission(
+//      @Parameter(description = "kind는 미션의 카테고리를 나타냅니다. \"WIZ\" 혹은 \"ETC\" 중 하나를 필수로 사용해야합니다. difficulty는 난이도를 나타냅니다. \"LOW\", \"MIDDLE\",\"HIGH\"중 하나를 요청보내야합니다.")
+//      @RequestParam(name = "kind", required = true) String kind,
+//      @RequestParam(name = "difficulty", required = false) String difficulty) {
+//    MissionDetailDto mission1 = MissionDetailDto.builder().id(1L).kind(Kind.WIZ).title("쓰레기 퍼즐 맞추기")
+//        .description("조각난 쓰레기 퍼즐을 보고배출방법 맞추기").difficulty(Difficulty.LOW).rewardPoint(2000L)
+//        .totalCount(100L).totalNumberOfParticipating(10L).personalParticipatingCount(0L)
+//        .personalCount(5L).iconUrl("url")
+//        .build();
+//    MissionDetailDto mission2 = MissionDetailDto.builder().id(2L).kind(Kind.ETC).title("쓰레기 멀리 던지기")
+//        .description("쓰레기를 멀리 던진다.").difficulty(Difficulty.MIDDLE).rewardPoint(2000L).totalCount(100L)
+//        .totalNumberOfParticipating(10L).personalParticipatingCount(1L).personalCount(5L).iconUrl("url")
+//        .build();
+//    List<MissionDetailDto> missions = new ArrayList<>();
+//    missions.add(mission1);
+//    missions.add(mission2);
+//    MissionDto response = new MissionDto(missions);
+//    return new ResponseEntity<>(DataResponse.of(HttpStatus.OK, "미션 조회 성공", response),
+//        HttpStatus.OK);
+//  }
+
+
 }
