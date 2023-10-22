@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class MissionDto {
-    List<MissionDetailDto> missions;
+
+  List<MissionDetailDto> missions;
 
   public MissionDto(List<MissionDetailDto> missions) {
     this.missions = missions;

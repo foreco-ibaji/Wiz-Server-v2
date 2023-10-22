@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class DashboardDto {
+
   String name;
   Long Point;
   String profileUrl;

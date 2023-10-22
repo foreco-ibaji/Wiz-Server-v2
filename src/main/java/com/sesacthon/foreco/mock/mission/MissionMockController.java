@@ -88,7 +88,6 @@ public class MissionMockController {
   public ResponseEntity<DataResponse<MissionResultInfoDto>> updateMissionResult(@RequestBody  MissionResultDto missionResultDto){
     //TODO 실제 api 구현시 contextHolder에서 값을 가져온 후  user의 id를 활용해야함
       //유저아이디를 조회후, rewardPoint반영
-
     //성공했으면, 성공을 반영
     //실패했으면, 실패를 반영.
     //사용자
