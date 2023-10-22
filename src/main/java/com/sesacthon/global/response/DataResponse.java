@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * 상태코드와 메시지, 데이터를 함께 보내는 경우
+ *
  * @param <T>
  */
 @Getter
