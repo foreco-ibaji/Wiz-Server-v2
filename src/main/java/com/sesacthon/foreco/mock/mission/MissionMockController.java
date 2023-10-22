@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MissionMockController {
 
   @Operation(summary = "미션 목록 조회 api", description = "미션 목록을 조회하는 api 입니다.")
-  @GetMapping("mock/api/v1/missions")
+  @GetMapping("mock/api/v1/mission")
   public ResponseEntity<DataResponse<MissionDto>> getMission(
       @Parameter(description = "kind는 미션의 카테고리를 나타냅니다. 사용하지 않을 시 \"WIZ\"가 기본적으로 사용되며 \"ETC\"를 조회할 시 필수로 사용해야합니다. difficulty는 난이도를 나타냅니다. \"LOW\", \"MIDDLE\",\"HIGH\"중 하나를 요청보내야합니다.")
       @RequestParam(name = "kind", required = true, defaultValue = "WIZ") String kind,
