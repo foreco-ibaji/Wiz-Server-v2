@@ -47,24 +47,43 @@ public class MemberController {
   /**
    * 인가코드를 통해 accessToken 과 유저 정보를 가져온다.
    */
+//  @Operation(
+//      summary = "카카오 계정 회원가입",
+//      description = "인가 코드를 입력하고 요청보내면, 사용자의 정보를 저장한 후 사용자의 Id를 확인할 수 있습니다.")
+//  @GetMapping("/api/v1/account/kakao/result")
+//  public ResponseEntity<DataResponse<LoginResponseDto>> kakaoLogin(
+//      @RequestParam("code") String code,
+//      @RequestParam("redirectUri") String redirectUri,
+//      @RequestParam("region") String region ) {
+//
+//    //TODO: 쿠키, 헤더 사용하지 않고 바로 accessToken과 refreshToken을 발급해주는 방식으로 바꿀 예정
+//    //코드를 통해 액세스 토큰 발급한 후, 유저 정보를 가져온다.
+//    KakaoUserInfoResponseDto kakaoUserInfo = kakaoFeignService.getKakaoInfoWithToken(code, redirectUri);
+//    //loginKakaoMember를 하면서 region도 함께 넘겨준다.
+//    LoginResponseDto kakaoLoginResponse = memberSignUpService.loginKakaoMember(kakaoUserInfo, region);
+//    return new ResponseEntity<>(
+//        DataResponse.of(
+//            HttpStatus.CREATED, "카카오 계정으로 회원가입 성공", kakaoLoginResponse), HttpStatus.CREATED);
+//  }
+
   @Operation(
       summary = "카카오 계정 회원가입",
-      description = "인가 코드를 입력하고 요청보내면, 사용자의 정보를 저장한 후 사용자의 Id를 확인할 수 있습니다.")
+      description = "토큰과 사용자의 지역정보로 요청하면, 사용자의 정보를 저장한 후 사용자의 Id를 확인할 수 있습니다.")
   @GetMapping("/api/v1/account/kakao/result")
   public ResponseEntity<DataResponse<LoginResponseDto>> kakaoLogin(
-      @RequestParam("code") String code,
-      @RequestParam("redirectUri") String redirectUri,
+      @RequestParam("token") String token,
       @RequestParam("region") String region ) {
-
-    //TODO: 쿠키, 헤더 사용하지 않고 바로 accessToken과 refreshToken을 발급해주는 방식으로 바꿀 예정
     //코드를 통해 액세스 토큰 발급한 후, 유저 정보를 가져온다.
-    KakaoUserInfoResponseDto kakaoUserInfo = kakaoFeignService.getKakaoInfoWithToken(code, redirectUri);
+    KakaoUserInfoResponseDto kakaoUser = kakaoFeignService.getKakaoInfo(token);
     //loginKakaoMember를 하면서 region도 함께 넘겨준다.
-    LoginResponseDto kakaoLoginResponse = memberSignUpService.loginKakaoMember(kakaoUserInfo, region);
+    LoginResponseDto kakaoLoginResponse = memberSignUpService.loginKakaoMember(kakaoUser, region);
     return new ResponseEntity<>(
         DataResponse.of(
             HttpStatus.CREATED, "카카오 계정으로 회원가입 성공", kakaoLoginResponse), HttpStatus.CREATED);
   }
+
+
+
 
   /**
    * 유저가 자기 자신의 정보에 대해 알 수 있다.
