@@ -72,7 +72,7 @@ public class MemberController {
   @GetMapping("/api/v1/account/kakao/result")
   public ResponseEntity<DataResponse<LoginResponseDto>> kakaoLogin(
       @RequestParam("token") String token,
-      @RequestParam("region") String region ) {
+      @RequestParam(value = "region", required = false) String region ) {
     //코드를 통해 액세스 토큰 발급한 후, 유저 정보를 가져온다.
     KakaoUserInfoResponseDto kakaoUser = kakaoFeignService.getKakaoInfo(token);
     //loginKakaoMember를 하면서 region도 함께 넘겨준다.
