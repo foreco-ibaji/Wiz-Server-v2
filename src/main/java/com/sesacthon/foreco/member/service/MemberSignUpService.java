@@ -28,14 +28,9 @@ public class MemberSignUpService {
 
   public LoginResponseDto loginKakaoMember(KakaoUserInfoResponseDto kakaoUserInfo, String region) {
     //카카오 회원 Id를 변조해서 검사해본다.(회원 Id로 해야만 고유성을 가질 수 있기 때문에)
-    Region memberRegion;
     String userNumber = String.format("%s#%s", OAuth2Provider.KAKAO, kakaoUserInfo.getId());
     Optional<Member> loginMember = memberService.getMemberByUserNumber(userNumber);
-    if(region == null) {
-      memberRegion = regionService.findRegion(1L);
-    } else {
-      memberRegion = regionService.findRegion(region);
-    }
+    Region memberRegion = regionService.findRegion(region);
 
     //만약 존재한다면, update 친다.
     if(loginMember.isPresent()) {

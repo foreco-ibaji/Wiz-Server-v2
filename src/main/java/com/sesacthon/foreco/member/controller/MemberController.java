@@ -82,7 +82,7 @@ public class MemberController {
     //loginKakaoMember를 하면서 region도 함께 넘겨준다.
     if(region == null) {
       Region fixedRegion = regionService.findRegion(1L);
-      String requestRegion = fixedRegion.getCity() + fixedRegion.getGu() + fixedRegion.getDong();
+      String requestRegion = fixedRegion.getCity() + " " + fixedRegion.getGu() + " " + fixedRegion.getDong();
       kakaoLoginResponse = memberSignUpService.loginKakaoMember(kakaoUser, requestRegion);
     } else {
       kakaoLoginResponse = memberSignUpService.loginKakaoMember(kakaoUser, region);
