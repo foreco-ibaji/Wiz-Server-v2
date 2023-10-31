@@ -12,6 +12,7 @@ import com.sesacthon.infra.feign.dto.response.KakaoUserInfoResponseDto;
 import com.sesacthon.infra.feign.service.KakaoFeignService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -75,12 +76,11 @@ public class MemberController {
   @Operation(
       summary = "미션탭에서 내 정보 조회",
       description = "사용자의 정보(프로필, 포인트, 이름 정보를 볼 수 있습니다.")
-  @PreAuthorize("isAuthenticated()")
+//  @PreAuthorize("isAuthenticated()")
   @GetMapping("/api/v1/mission/dashboard")
-  public ResponseEntity<DataResponse<MemberInfoResponseDto>> getMember(
-      @AuthenticationPrincipal SessionUser sessionUser
-  ) {
-    MemberInfoResponseDto memberInfo = memberInfoService.getMember(sessionUser.getUuid());
+  public ResponseEntity<DataResponse<MemberInfoResponseDto>> getMember() {
+    UUID memberId = UUID.fromString("667c59d0-0524-47fb-ab5a-effdaa62b598");
+    MemberInfoResponseDto memberInfo = memberInfoService.getMember(memberId);
     return new ResponseEntity<>(
         DataResponse.of(HttpStatus.OK, "멤버 정보 조회 성공", memberInfo), HttpStatus.OK);
   }
