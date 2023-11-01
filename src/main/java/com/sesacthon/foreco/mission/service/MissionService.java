@@ -101,7 +101,7 @@ public class MissionService {
       choices.add(new QuizMissionChoice(++index, mixUpChoice));
       if (mixUpChoice.equals(answerInfo.getTrash())) {
         String disposalMethod = getDisposalMethod(answerInfo.getTrash());//배출방법 조회
-        answer = new QuizMissionAnswer(index, answerInfo.getTrash(), answerInfo.getUrl(),
+        answer = new QuizMissionAnswer(index, answerInfo.getTrash(), "https://" + bucket+answerInfo.getUrl(),
             disposalMethod);
       }
     }
