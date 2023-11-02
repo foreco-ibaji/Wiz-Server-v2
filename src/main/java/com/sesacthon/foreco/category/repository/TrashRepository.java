@@ -14,5 +14,9 @@ public interface TrashRepository extends JpaRepository<Trash, Long> {
       @Param("categoryId") Long categoryId, @Param("keyword") String keyword);
 
   //keyword를 포함한 name이며, parentTrash가  null이 아닌 경우를 찾음.
-  Optional<Trash> findByNameContainingAndParentTrashIsNotNull(String keyword);
+  @Query("select t from Trash t where t.parentTrash.id is not null and t.name like concat('%', :keyword, '%')")
+  List<Trash> findByAiKeyword(@Param("keyword") String keyword);
+
+  @Query("select t from Trash t where t.name like concat('%', :trashName, '%')")
+  Optional<Trash> findByKeyword(String trashName);
 }

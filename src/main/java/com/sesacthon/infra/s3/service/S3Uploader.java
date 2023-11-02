@@ -21,7 +21,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -183,6 +182,8 @@ public class S3Uploader {
       in.close();
 
       String resultValue = removeEscape(response.toString());
+      log.info(resultValue);
+      log.info(response.toString());
       //단일 품목이며, 조회가 가능한 품목인 경우 상세조회할 trash의 id를 반환함.
       trashId = judgeItCanBeSearched(resultValue);
       return new UploadDto("AI 서버에 이미지 전송 성공", resultValue, trashId);
@@ -203,14 +204,30 @@ public class S3Uploader {
     if (endIndex < 0) {    //ai응답 값부터 확인해봐야함
       return -1L;
     }
-    String keyword = resultValue.substring(2, endIndex);
-    Optional<Trash> trash = trashRepository.findByNameContainingAndParentTrashIsNotNull(
-        keyword);   //keyword를 포함한 name이며, parentTrash가  null이 아닌 경우를 찾음.
-    if (trash.isPresent()) {
-      return trash.get().getId();
-    } else {
-      return -1L;
+
+    String[] splitResult = resultValue.split(",");
+    log.info("쪼갠 결과 : " + splitResult[0]);
+    String keyword = splitResult[0].substring(3, endIndex);
+
+    log.info("keyword : " + keyword);
+    String[] unicodeArray = keyword.split("\\\\u");
+    StringBuilder strKeyword = new StringBuilder();
+
+    for (String unicode : unicodeArray) {
+      if (!unicode.isEmpty()) {
+        int codePoint = Integer.parseInt(unicode, 16);
+        strKeyword.append((char) codePoint);
+      }
     }
+    log.info("반환된 문자 : " + strKeyword.toString());
+
+    List<Trash> trashes = trashRepository.findByAiKeyword(strKeyword.toString());
+//    if (trash.isPresent()) {
+//      return trash.get().getId();
+//    } else {
+//      return -1L;
+//    }
+    return trashes.get(0).getId();
   }
 
   private String removeEscape(String response) {

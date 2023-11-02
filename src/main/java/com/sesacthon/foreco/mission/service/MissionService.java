@@ -156,8 +156,7 @@ public class MissionService {
    * @return 배출방법이 존재하면, 배출방법을 조회하지 않을 경우 " "
    */
   private String getDisposalMethod(String trashName) {
-
-    Optional<Trash> trash = trashRepository.findByNameContainingAndParentTrashIsNotNull(trashName);
+    Optional<Trash> trash = trashRepository.findByKeyword(trashName);
     if (trash.isPresent()) {
       Optional<TrashInfo> trashInfo = trashInfoRepository.findByTrashIdAndRegionId(
           trash.get().getId(), REGION_ID);
