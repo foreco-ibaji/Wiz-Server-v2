@@ -206,10 +206,10 @@ public class S3Uploader {
     }
 
     String[] splitResult = resultValue.split(",");
-    log.info("쪼갠 결과 : " + splitResult[0]);
+//    log.info("쪼갠 결과 : " + splitResult[0]);
     String keyword = splitResult[0].substring(3, endIndex);
 
-    log.info("keyword : " + keyword);
+//    log.info("keyword : " + keyword);
     String[] unicodeArray = keyword.split("\\\\u");
     StringBuilder strKeyword = new StringBuilder();
 
@@ -219,14 +219,13 @@ public class S3Uploader {
         strKeyword.append((char) codePoint);
       }
     }
-    log.info("반환된 문자 : " + strKeyword.toString());
+//    log.info("반환된 문자 : " + strKeyword.toString());
 
     List<Trash> trashes = trashRepository.findByAiKeyword(strKeyword.toString());
-//    if (trash.isPresent()) {
-//      return trash.get().getId();
-//    } else {
-//      return -1L;
-//    }
+
+    if(trashes.isEmpty()) {
+      return -1L;
+    }
     return trashes.get(0).getId();
   }
 
