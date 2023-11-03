@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -153,38 +151,24 @@ public class S3Uploader {
     ImageAnalyzeResponseDto response = quizMissionAiServer.analyzeImage(
         new ImageAnalyzeRequestDto(fileUrl));
 
-    //빈 배열이면 -1 반환 후 종료
-    if (response.getBboxes().size() == 0) {
-      return new AiImageAnalyzeDto("AI 서버에서 정확하게 인식하지 못했습니다.", null, -1L);
-    }
-
-    //여러개의 키워드가 존재하는지 확인함 -> size가 1보다 큰 경우, 복합재질이므로 id = -1로 만들기 위함.
-    Set<String> trashNames = new HashSet<>();
     List<AnalyzedImageDetailDto> result = new ArrayList<>();
     for (List<String> imageInfo : response.getBboxes()) {
       //반환할 result를 만듬
       String name = imageInfo.get(0);
+
       List<Integer> coordinate = new ArrayList<>();
       for (int i = 1; i <= 4; i++) {
         coordinate.add(Integer.parseInt(imageInfo.get(i)));
       }
-      result.add(new AnalyzedImageDetailDto(name, coordinate));
-      //ai분석 결과에서 반환된 쓰레기 이름이 여러개 인지 확인하기 위해 set에 넣음
-      trashNames.add(name);
-    }
 
-    //쓰레기 이름이 한개이면서, 조회 가능한 경우 id를 반환하며, 그렇지 않은 경우 -1을 반환
-    Long trashId = -1L;
-    List<Trash> trashes = new ArrayList<>();
-    if (trashNames.size() == 1) {
-      for (String name : trashNames) {
-        trashes = trashRepository.findByAiKeyword(name);
-      }
+      Long id = -1L;
+      List<Trash> trashes = trashRepository.findByAiKeyword(name);
       if (trashes.size() >= 1) {
-        trashId = trashes.get(0).getId();
+        id = trashes.get(0).getId();
       }
+      result.add(new AnalyzedImageDetailDto(name, coordinate, id));
     }
-    return new AiImageAnalyzeDto("ai모델을 통한 이미지 분석 성공", result, trashId);
+    return new AiImageAnalyzeDto("ai이미지 분석 요청 성공", result);
   }
 }
 
