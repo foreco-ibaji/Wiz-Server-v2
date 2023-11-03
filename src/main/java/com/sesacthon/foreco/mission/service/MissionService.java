@@ -101,7 +101,8 @@ public class MissionService {
       choices.add(new QuizMissionChoice(++index, mixUpChoice));
       if (mixUpChoice.equals(answerInfo.getTrash())) {
         String disposalMethod = getDisposalMethod(answerInfo.getTrash());//배출방법 조회
-        answer = new QuizMissionAnswer(index, answerInfo.getTrash(), "https://" + bucket+answerInfo.getUrl(),
+        answer = new QuizMissionAnswer(index, answerInfo.getTrash(),
+            "https://" + bucket + answerInfo.getUrl(),
             disposalMethod);
       }
     }
@@ -173,20 +174,25 @@ public class MissionService {
   }
 
 
-  public List<MissionDetailDto> findMissionsWithKindAndDifficulty(String kind, String difficulty, UUID memberId) {
+  public List<MissionDetailDto> findMissionsWithKindAndDifficulty(String kind, String difficulty,
+      UUID memberId) {
     List<Mission> missions =
-        missionRepository.findByKindAndDifficulth(Kind.valueOf(kind), Difficulty.valueOf(difficulty));
+        missionRepository.findByKindAndDifficulth(Kind.valueOf(kind),
+            Difficulty.valueOf(difficulty));
     return createEntityToDto(missions, memberId);
   }
 
   private List<MissionDetailDto> createEntityToDto(List<Mission> missions, UUID memberId) {
     return missions.stream()
         .map(mission -> {
-          List<Participation> totalParticipation = participationRepository.findByMissionId(mission.getId());
+          List<Participation> totalParticipation = participationRepository.findByMissionId(
+              mission.getId());
           long totalParticipationSize = totalParticipation.size();
-          long personalParticipationSize = getPersonalParticipationSize(memberId, totalParticipation);
+          long personalParticipationSize = getPersonalParticipationSize(memberId,
+              totalParticipation);
           String iconUrl = s3Downloader.getIconUrl(mission.getIcon().getIconFile());
-          return new MissionDetailDto(mission, personalParticipationSize, totalParticipationSize, iconUrl);
+          return new MissionDetailDto(mission, personalParticipationSize, totalParticipationSize,
+              iconUrl);
         })
         .collect(Collectors.toList());
   }

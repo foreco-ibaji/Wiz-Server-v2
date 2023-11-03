@@ -66,13 +66,15 @@ public class TrashService {
     //id로 trash 객체를 가져옴
     Trash trash = trashRepository.findById(id)
         .orElseThrow(() -> new TrashNotFoundException(ErrorCode.TRASH_NOT_FOUND));
-
+    log.info("trash{}:", trash);
     //trashInfo가져옴
     TrashInfo trashInfo = trashInfoRepository.findByTrashIdAndRegionId(trash.getId(), regionId)
         .orElseThrow(() -> new TrashNotFoundException(ErrorCode.TRASH_NOT_FOUND));
+    log.info("trashInfo{}:", trashInfo);
 
     //배출 정보를 가져옴
     List<Disposal> disposals = getDisposals(regionId, trash);
+    log.info("disposal{}:", disposals);
 
     TrashDetailDto trashDetailDto = TrashDetailDto.builder()
         .id(trash.getId())
