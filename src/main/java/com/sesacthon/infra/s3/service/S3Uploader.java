@@ -9,18 +9,20 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.sesacthon.foreco.category.entity.Trash;
 import com.sesacthon.foreco.category.repository.TrashRepository;
-import com.sesacthon.infra.s3.dto.UploadDto;
+import com.sesacthon.infra.feign.client.mission.QuizMissionClient;
+import com.sesacthon.infra.feign.dto.request.ImageAnalyzeRequestDto;
+import com.sesacthon.infra.feign.dto.response.ImageAnalyzeResponseDto;
+import com.sesacthon.infra.s3.dto.AiImageAnalyzeDto;
+import com.sesacthon.infra.s3.dto.AnalyzedImageDetailDto;
 import com.sesacthon.infra.s3.exception.ImageUploadException;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,7 @@ public class S3Uploader {
   private final AmazonS3Client amazonS3Client;
 
   private final TrashRepository trashRepository;
+  private final QuizMissionClient quizMissionAiServer;
 
   @Value("${cloud.aws.s3.bucket}")
   private String bucket;
@@ -67,9 +70,8 @@ public class S3Uploader {
   }
 
   /**
-   *
    * @param base64Data base64로 인코딩된 문자열
-   * @param prefix s3에 저장할 경로
+   * @param prefix     s3에 저장할 경로
    * @return s3에 저장된 이미지 url
    */
   public String uploadFileUsingStream(String base64Data, String prefix) {
@@ -145,95 +147,46 @@ public class S3Uploader {
    * @param multipartFile 사용자가 촬영한 이미지 파일
    * @return 서버 전송 결과 메시지 + 분석 결과값 반환
    */
-  public UploadDto sendToAiServer(MultipartFile multipartFile) throws IOException {
-    final String endPoint = aiUrl + "/Wiz-upload";
+  public AiImageAnalyzeDto sendToAiServer(MultipartFile multipartFile) throws IOException {
 
     String fileUrl = uploadFile(multipartFile);
+    ImageAnalyzeResponseDto response = quizMissionAiServer.analyzeImage(
+        new ImageAnalyzeRequestDto(fileUrl));
 
-    URL url = new URL(endPoint);
-    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-    //생성한 url connection 이 서버에 데이터를 보낼 수 있는지 여부 설정
-    connection.setDoOutput(true);
-    //url 요청에 대한 메소드를 설정
-    connection.setRequestMethod("POST");
-    //일반 요청 속성을 지정
-    connection.setRequestProperty("Content-Type", "application/json");
-
-    String jsonPayload = "{\"image_url\": \"" + fileUrl + "\"}";
-
-    try (OutputStream outputStream = connection.getOutputStream()) {
-      outputStream.write(jsonPayload.getBytes());
+    //빈 배열이면 -1 반환 후 종료
+    if (response.getBboxes().size() == 0) {
+      return new AiImageAnalyzeDto("AI 서버에서 정확하게 인식하지 못했습니다.", null, -1L);
     }
 
-    // AI 서버로 요청 전송 및 응답 처리
-    int responseCode = connection.getResponseCode();
+    //여러개의 키워드가 존재하는지 확인함 -> size가 1보다 큰 경우, 복합재질이므로 id = -1로 만들기 위함.
+    Set<String> trashNames = new HashSet<>();
+    List<AnalyzedImageDetailDto> result = new ArrayList<>();
+    for (List<String> imageInfo : response.getBboxes()) {
+      //반환할 result를 만듬
+      String name = imageInfo.get(0);
+      List<Integer> coordinate = new ArrayList<>();
+      for (int i = 1; i <= 4; i++) {
+        coordinate.add(Integer.parseInt(imageInfo.get(i)));
+      }
+      result.add(new AnalyzedImageDetailDto(name, coordinate));
+      //ai분석 결과에서 반환된 쓰레기 이름이 여러개 인지 확인하기 위해 set에 넣음
+      trashNames.add(name);
+    }
 
+    //쓰레기 이름이 한개이면서, 조회 가능한 경우 id를 반환하며, 그렇지 않은 경우 -1을 반환
     Long trashId = -1L;
-    if (responseCode == HttpURLConnection.HTTP_OK) {
-      // 성공적으로 이미지 전달했을 경우
-      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-      String inputLine;
-      StringBuilder response = new StringBuilder();
-
-      while ((inputLine = in.readLine()) != null) {
-        response.append(inputLine);
+    List<Trash> trashes = new ArrayList<>();
+    if (trashNames.size() == 1) {
+      for (String name : trashNames) {
+        trashes = trashRepository.findByAiKeyword(name);
       }
-      in.close();
-
-      String resultValue = removeEscape(response.toString());
-      log.info(resultValue);
-      log.info(response.toString());
-      //단일 품목이며, 조회가 가능한 품목인 경우 상세조회할 trash의 id를 반환함.
-      trashId = judgeItCanBeSearched(resultValue);
-      return new UploadDto("AI 서버에 이미지 전송 성공", resultValue, trashId);
-    } else {
-      // 전달 실패
-      return new UploadDto("AI 서버에 이미지 전송 실패", null, trashId);
-    }
-  }
-
-  private Long judgeItCanBeSearched(String resultValue) {
-    //단일 재질인지 판단
-    if (resultValue.contains("],[")) {
-      return -1L;
-    }
-
-    //단일 재질인 경우에도, 조회가 가능한 데이터인지 판단
-    int endIndex = resultValue.indexOf(",");
-    if (endIndex < 0) {    //ai응답 값부터 확인해봐야함
-      return -1L;
-    }
-
-    String[] splitResult = resultValue.split(",");
-//    log.info("쪼갠 결과 : " + splitResult[0]);
-    String keyword = splitResult[0].substring(3, endIndex);
-
-//    log.info("keyword : " + keyword);
-    String[] unicodeArray = keyword.split("\\\\u");
-    StringBuilder strKeyword = new StringBuilder();
-
-    for (String unicode : unicodeArray) {
-      if (!unicode.isEmpty()) {
-        int codePoint = Integer.parseInt(unicode, 16);
-        strKeyword.append((char) codePoint);
+      if (trashes.size() >= 1) {
+        trashId = trashes.get(0).getId();
       }
     }
-//    log.info("반환된 문자 : " + strKeyword.toString());
-
-    List<Trash> trashes = trashRepository.findByAiKeyword(strKeyword.toString());
-
-    if(trashes.isEmpty()) {
-      return -1L;
-    }
-    return trashes.get(0).getId();
-  }
-
-  private String removeEscape(String response) {
-    return response.replace("\"", "")
-        .replace("bboxes:", "")
-        .replace("{", "")
-        .replace("}", "");
+    return new AiImageAnalyzeDto("ai모델을 통한 이미지 분석 성공", result, trashId);
   }
 }
+
+
 
