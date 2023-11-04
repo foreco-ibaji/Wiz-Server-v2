@@ -20,7 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -151,7 +153,7 @@ public class S3Uploader {
     ImageAnalyzeResponseDto response = quizMissionAiServer.analyzeImage(
         new ImageAnalyzeRequestDto(fileUrl));
 
-    List<AnalyzedImageDetailDto> result = new ArrayList<>();
+    Set<AnalyzedImageDetailDto> result = new HashSet<>();
     for (List<String> imageInfo : response.getBboxes()) {
       //반환할 result를 만듬
       String name = imageInfo.get(0);
