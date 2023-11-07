@@ -18,5 +18,5 @@ public interface TrashRepository extends JpaRepository<Trash, Long> {
   List<Trash> findByAiKeyword(@Param("keyword") String keyword);
 
   @Query("select t from Trash t where t.name like concat('%', :trashName, '%')")
-  Optional<Trash> findByKeyword(String trashName);
+  List<Trash> findByKeyword(@Param("trashName") String trashName);
 }

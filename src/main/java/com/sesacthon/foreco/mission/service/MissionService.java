@@ -67,14 +67,12 @@ public class MissionService {
         .orElseThrow(() -> new MissionNotFountException(
             ErrorCode.MISSION_NOT_FOUND));
     MissionInfo missionInfo = getMissionInfo(mission);
-
     //mission에 사용할 쓰레기들의 정보를 4개 가져옴
     List<QuizMissionImage> quizMissionImages = QuizMissionImage.getRandomQuizMissionImages();
     //첫번째 값을 정답으로 취급함.
     QuizMissionImage answerInfo = quizMissionImages.get(0);
     //AI서버에 정답 이미지를 보내 4개의 이미지로 분할함
     List<String> dividedImageUrls = divideImage(answerInfo);
-
     List<QuizMissionChoice> choices = new ArrayList<>();
     Set<String> mixUpChoices = new HashSet<>();
     quizMissionImages.forEach(choice -> {
@@ -157,10 +155,11 @@ public class MissionService {
    * @return 배출방법이 존재하면, 배출방법을 조회하지 않을 경우 " "
    */
   private String getDisposalMethod(String trashName) {
-    Optional<Trash> trash = trashRepository.findByKeyword(trashName);
-    if (trash.isPresent()) {
+    List<Trash> trashs = trashRepository.findByKeyword(trashName);
+    if (trashs.size() > 0) {
+      Trash trash = trashs.get(0);
       Optional<TrashInfo> trashInfo = trashInfoRepository.findByTrashIdAndRegionId(
-          trash.get().getId(), REGION_ID);
+          trash.getId(), REGION_ID);
       if (trashInfo.isPresent()) {
         return trashInfo.get().getMethod();
       }
