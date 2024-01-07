@@ -15,4 +15,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
   @Query("select p from Participation p where p.mission.id = :missionId")
   List<Participation> findByMissionId(@Param("missionId") Long missionId);
 
+  @Query("delete from Participation p where p.member.id = :memberId")
+  void deleteByMemberId(@Param("memberId") UUID memberId);
 }
