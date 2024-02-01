@@ -29,6 +29,11 @@ public class Member extends BaseTimeEntity {
   private UUID id;
 
   /**
+   * SNS에서 관리하는 사용자 번호
+   */
+  private Long snsId;
+
+  /**
    * 역할(Guest, Social)
    */
   @Enumerated(EnumType.STRING)

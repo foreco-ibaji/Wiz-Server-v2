@@ -1,10 +1,12 @@
 package com.sesacthon.infra.feign.client.kakao;
 
 import com.sesacthon.infra.feign.config.KakaoFeignConfig;
+import com.sesacthon.infra.feign.dto.response.KakaoUserUnlinkResponseDto;
 import com.sesacthon.infra.feign.dto.response.KakaoUserInfoResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
@@ -17,5 +19,8 @@ public interface KakaoInfoClient {
   //https://kapi.kakao.com/v2/user/me => 회원 정보 요청 url
   @GetMapping(value = "/v2/user/me")
   KakaoUserInfoResponseDto getUserInfo(@RequestHeader(name = "Authorization") String Authorization);
+
+  @PostMapping(value = "/v1/user/unlink")
+  KakaoUserUnlinkResponseDto unlinkUser(@RequestHeader(name = "Authorization") String Authorization);
 
 }

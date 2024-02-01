@@ -6,6 +6,7 @@ import com.sesacthon.infra.feign.dto.KakaoInfo;
 import com.sesacthon.infra.feign.dto.request.KakaoTokenRequestDto;
 import com.sesacthon.infra.feign.dto.response.KakaoTokenResponseDto;
 import com.sesacthon.infra.feign.dto.response.KakaoUserInfoResponseDto;
+import com.sesacthon.infra.feign.dto.response.KakaoUserUnlinkResponseDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import lombok.RequiredArgsConstructor;
@@ -66,6 +67,10 @@ public class KakaoFeignService {
     KakaoTokenResponseDto token = kakaoTokenClient.getToken(
         KakaoTokenRequestDto.newInstance(kakaoInfo, code, redirectUri).toString());
     return token.getAccessToken();
+  }
+
+  public KakaoUserUnlinkResponseDto unlinkService(String kakaoToken) {
+    return kakaoInfoClient.unlinkUser(kakaoToken);
   }
 
 

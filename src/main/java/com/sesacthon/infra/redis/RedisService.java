@@ -28,4 +28,8 @@ public class RedisService {
         .orElseThrow(() -> new JwtException(REFRESH_JWT_EXPIRED));
     return token.getMemberId();
   }
+
+  public void deleteRefreshToken(UUID memberId) {
+    refreshTokenRepository.deleteById(memberId);
+  }
 }
