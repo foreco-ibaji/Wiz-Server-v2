@@ -53,5 +53,5 @@ jobs:
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}
             chmod 777 ./deploy.sh
-            ./deploy.sh
+            bash deploy.sh
             docker image prune -f
