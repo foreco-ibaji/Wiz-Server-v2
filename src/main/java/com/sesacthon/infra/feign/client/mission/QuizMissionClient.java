@@ -6,10 +6,11 @@ import com.sesacthon.infra.feign.dto.response.ImageAnalyzeResponseDto;
 import com.sesacthon.infra.feign.dto.response.ImageDivisionResponseDto;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.multipart.MultipartFile;
 
-@FeignClient(name = "QuizMissionAiServerApi", url ="${AI_MISSION_URL}")
+@FeignClient(name = "QuizMissionAiServerApi", url = "${AI_MISSION_URL}")
+@Component
 public interface QuizMissionClient {
 
   @PostMapping(value ="/Wiz-mission-randomCrop")
