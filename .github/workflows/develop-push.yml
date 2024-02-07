@@ -38,7 +38,7 @@ jobs:
           NAME: ${{ secrets.DOCKER_USERNAME }}
           REPO: ${{ secrets.DOCKER_REPO }}
         run: |
-          docker build -t $REPO .
+          docker build -t $NAME/$REPO .
           docker push $NAME/$REPO
 
       # 도커 컴포즈 실행하기
