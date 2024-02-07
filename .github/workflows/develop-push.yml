@@ -44,7 +44,7 @@ jobs:
       # 도커 컴포즈 실행하기
       # 도커 허브에서 jar파일 및 pull후에 컴포즈 up
       - name: Deploy to Dev
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.4
         with:
           username: ubuntu
           host: ${{ secrets.EC2_HOST }}
