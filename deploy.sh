@@ -1,59 +1,59 @@
 #!/bin/bash
-#redis -
 
-#echo "redis 이미지 받아오기"
-#docker-compose pull redis
-#
-#echo "redis 실행"
-#docker-compose up -d redis
+IS_GREEN=$(docker ps | grep green) # 현재 실행중인 App이 blue인지 확인합니다.
+DEFAULT_CONF=" /etc/nginx/nginx.conf"
 
-#redis -
-docker-compose stop green
+if [ -z $IS_GREEN  ];then # blue라면
 
-echo "그린 이미지 받아오기"
-docker-compose pull green
+  echo "### BLUE => GREEN ###"
 
-echo "그린 실행"
-docker-compose up -d green
+  echo "1. get green image"
+  docker-compose pull green # green으로 이미지를 내려받습니다.
 
-# health check
+  echo "2. green container up"
+  docker-compose up -d green # green 컨테이너 실행
 
-while [ 1 = 1 ]; do
-echo "헬스 체크 중"
-sleep 3
-
-REQUEST=$(curl http://127.0.0.1:8080)
-  if [ -n "$REQUEST" ]; then
-          echo "헬스 체크 성공"
-          break ;
-          fi
-done;
-
-#echo "nginx conf 파일 교체"
-#sudo cp ./nginx.green.conf /etc/nginx/nginx.conf
-#sudo nginx -s reload
-
-
-docker-compose stop blue
-
-echo "블루 이미지 받아오기"
-docker-compose pull blue
-
-echo "블루 실행"
-docker-compose up -d blue
-
-# health check
-while [ 1 = 1 ]; do
-  echo "헬스 체크 중"
+  while [ 1 = 1 ]; do
+  echo "3. green health check..."
   sleep 3
-  REQUEST=$(curl http://127.0.0.1:8081)
 
-  if [ -n "$REQUEST" ]; then
-    echo "헬스 체크 성공"
-    break ;
-  fi
-done;
+  REQUEST=$(curl http://127.0.0.1:8080) # green으로 request
+    if [ -n "$REQUEST" ]; then # 서비스 가능하면 health check 중지
+            echo "health check success"
+            break ;
+            fi
+  done;
 
-#echo "nginx conf 파일 교체"
-#sudo cp ./nginx.default.conf /etc/nginx/nginx.conf
-#sudo nginx -s reload
+  echo "4. reload nginx"
+  sudo cp /nginx/conf.d/nginx.green.conf /etc/nginx/nginx.conf
+  sudo nginx -s rel
+
+  echo "5. blue container down"
+  docker-compose stop blue
+else
+  echo "### GREEN => BLUE ###"
+
+  echo "1. get blue image"
+  docker-compose pull blue
+
+  echo "2. blue container up"
+  docker-compose up -d blue
+
+  while [ 1 = 1 ]; do
+    echo "3. blue health check..."
+    sleep 3
+    REQUEST=$(curl http://127.0.0.1:8081) # blue로 request
+
+    if [ -n "$REQUEST" ]; then # 서비스 가능하면 health check 중지
+      echo "health check success"
+      break ;
+    fi
+  done;
+
+  echo "4. reload nginx"
+  sudo cp /nginx/conf.d/nginx.blue.conf /etc/nginx/nginx.conf
+  sudo nginx -s reload
+
+  echo "5. green container down"
+  docker-compose stop green
+fi

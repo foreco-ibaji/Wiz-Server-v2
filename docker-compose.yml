@@ -9,7 +9,7 @@ services:
       - "mode=standalone"
 
   green:
-    image: ibajee-web
+    image: leeseolhui/ibajee-web
     ports:
       - 8080:8080  # green은 8080 포트를 열어줍니다.
     env_file:
@@ -20,7 +20,7 @@ services:
       - redis
 
   blue:
-    image: ibajee-web
+    image: leeseolhui/ibajee-web
     ports:
       - 8081:8080  #blue는 8081 포트를 열어줍니다.
     env_file:
