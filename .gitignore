@@ -8,8 +8,8 @@ build/
 src/main/resources/application-dev.yml
 src/main/generated
 .env
-./nginx/certificates/*.pem
-./nginx/conf.d/nginx.conf
+nginx/certificates/*.pem
+nginx/conf.d/nginx.conf
 
 ### STS ###
 .apt_generated
