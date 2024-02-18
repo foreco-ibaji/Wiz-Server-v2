@@ -51,7 +51,7 @@ else
   done;
 
   echo "4. reload nginx"
-  sudo cp /nginx/conf.d/nginx.blue.conf /etc/nginx/nginx.conf
+  sudo cp ./nginx/conf.d/nginx.blue.conf /etc/nginx/nginx.conf
   sudo nginx -s reload
 
   echo "5. green container down"
