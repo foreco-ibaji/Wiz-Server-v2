@@ -1,4 +1,4 @@
-package com.sesacthon.foreco.mock.mission.dto;
+package com.sesacthon.foreco.mission.dto;
 
 import com.sesacthon.foreco.mission.entity.Difficulty;
 import com.sesacthon.foreco.mission.entity.Kind;

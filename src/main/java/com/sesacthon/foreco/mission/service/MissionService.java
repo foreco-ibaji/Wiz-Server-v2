@@ -7,7 +7,7 @@ import com.sesacthon.foreco.mission.QuizMissionImage;
 import com.sesacthon.foreco.mission.entity.Difficulty;
 import com.sesacthon.foreco.mission.entity.Kind;
 import com.sesacthon.foreco.mission.entity.Participation;
-import com.sesacthon.foreco.mock.mission.dto.MissionDetailDto;
+import com.sesacthon.foreco.mission.dto.MissionDetailDto;
 import com.sesacthon.foreco.mission.dto.MissionResultInfoDto;
 import com.sesacthon.foreco.mission.dto.MissionResultDto;
 import com.sesacthon.infra.feign.dto.request.ImageDivisionRequestDto;

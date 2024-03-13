@@ -3,8 +3,8 @@ package com.sesacthon.foreco.mission.controller;
 
 import com.sesacthon.foreco.mission.dto.QuizMissionDto;
 import com.sesacthon.foreco.mission.service.MissionService;
-import com.sesacthon.foreco.mock.mission.dto.MissionDetailDto;
-import com.sesacthon.foreco.mock.mission.dto.MissionDto;
+import com.sesacthon.foreco.mission.dto.MissionDetailDto;
+import com.sesacthon.foreco.mission.dto.MissionDto;
 import com.sesacthon.global.response.DataResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
