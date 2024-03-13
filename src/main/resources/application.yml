@@ -5,5 +5,4 @@ spring:
 
 springdoc:
   swagger-ui:
-    path=/swagger-ui.html:
-
+    urls-primary-name: real-apis
