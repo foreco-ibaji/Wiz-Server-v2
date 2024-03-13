@@ -1,19 +1,14 @@
 name: Deploy to AWS by docker when PR merged
 
 on:
-  pull_request:
+  push:
     branches: [ "develop" ]
-    types:
-      - closed
+
 # 권한 설정
 permissions:
   contents: read
 
 jobs:
-  CI-CD:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-
     steps:
       # JDK 설정
       - uses: actions/checkout@v3
