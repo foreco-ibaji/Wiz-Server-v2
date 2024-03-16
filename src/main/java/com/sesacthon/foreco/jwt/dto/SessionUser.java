@@ -11,12 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SessionUser implements Serializable {
-
   private UUID uuid;
+  private Long regionId;
   private String oauthProvider;
 
   public SessionUser(Member member) {
     this.uuid = member.getId();
+    this.regionId = member.getRegion().getId();
     this.oauthProvider = member.getOauth2Provider().toString();
   }
 }
