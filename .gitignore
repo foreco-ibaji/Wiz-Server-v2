@@ -8,6 +8,7 @@ build/
 src/main/resources/application-dev.yml
 src/main/generated
 .env
+./mysql-data
 nginx/certificates/*.pem
 nginx/conf.d/nginx.conf
 

@@ -23,6 +23,20 @@ services:
     links:
       - redis
 
+  db:
+    container_name: ibajee-mysql
+    image: mysql:8.0
+    platform: linux/arm64
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_AUTHENTICATION_PLUGIN: caching_sha2_password
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql-data:/var/lib/mysql/:rw
+    user: mysql
+
   nginx:
     container_name: nginx
     image: nginx
