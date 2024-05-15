@@ -14,6 +14,6 @@ public interface MissionRepository extends JpaRepository<Mission,Long> {
     List<Mission> findByKind(@Param("kind") Kind kind);
 
     @Query("select m from Mission m where m.kind = :kind and m.difficulty = :difficulty")
-    List<Mission> findByKindAndDifficulth(
+    List<Mission> findByKindAndDifficulty(
         @Param("kind") Kind kind, @Param("difficulty") Difficulty difficulty);
 }

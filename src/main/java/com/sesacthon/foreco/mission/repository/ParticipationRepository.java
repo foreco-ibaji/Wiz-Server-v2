@@ -12,7 +12,7 @@ public interface ParticipationRepository extends JpaRepository<Participation, Lo
   @Query("select count(p) from Participation p where p.member.id =:memberId and p.mission.id =:missionId")
   Long countByMemberIdAndMissionId(@Param("memberId") UUID memberId, @Param("missionId") Long missionId);
 
-  @Query("select p from Participation p where p.mission.id = :missionId")
+  @Query("select p from Participation p join fetch p.member where p.mission.id = :missionId")
   List<Participation> findByMissionId(@Param("missionId") Long missionId);
 
   @Query("delete from Participation p where p.member.id = :memberId")

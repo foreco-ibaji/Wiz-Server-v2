@@ -4,6 +4,7 @@ import com.sesacthon.foreco.category.entity.Trash;
 import com.sesacthon.foreco.category.repository.TrashRepository;
 import com.sesacthon.foreco.member.repository.MemberRepository;
 import com.sesacthon.foreco.mission.QuizMissionImage;
+import com.sesacthon.foreco.mission.dto.MissionDto;
 import com.sesacthon.foreco.mission.entity.Difficulty;
 import com.sesacthon.foreco.mission.entity.Kind;
 import com.sesacthon.foreco.mission.entity.Participation;
@@ -26,6 +27,7 @@ import com.sesacthon.global.exception.ErrorCode;
 import com.sesacthon.infra.feign.client.mission.QuizMissionClient;
 import com.sesacthon.infra.s3.service.S3Downloader;
 import com.sesacthon.infra.s3.service.S3Uploader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -172,26 +174,22 @@ public class MissionService {
     return createEntityToDto(missions, memberId);
   }
 
-
-  public List<MissionDetailDto> findMissionsWithKindAndDifficulty(String kind, String difficulty,
-      UUID memberId) {
-    List<Mission> missions =
-        missionRepository.findByKindAndDifficulth(Kind.valueOf(kind),
-            Difficulty.valueOf(difficulty));
+  public List<MissionDetailDto> findMissionsWithKindAndDifficulty(String kind, String difficulty, UUID memberId) {
+    List<Mission> missions = missionRepository.findByKindAndDifficulty(Kind.valueOf(kind), Difficulty.valueOf(difficulty));
     return createEntityToDto(missions, memberId);
   }
 
   private List<MissionDetailDto> createEntityToDto(List<Mission> missions, UUID memberId) {
     return missions.stream()
         .map(mission -> {
-          List<Participation> totalParticipation = participationRepository.findByMissionId(
-              mission.getId());
+          // 미션 아이디에 맞는 모든 이력 데이터를 가져온다.
+          List<Participation> totalParticipation = participationRepository.findByMissionId(mission.getId());
+
           long totalParticipationSize = totalParticipation.size();
-          long personalParticipationSize = getPersonalParticipationSize(memberId,
-              totalParticipation);
+          // 멤버 아이디에 해당하는 참여 이력 데이터들을 가져온다.
+          long personalParticipationSize = getPersonalParticipationSize(memberId, totalParticipation);
           String iconUrl = s3Downloader.getIconUrl(mission.getIcon().getIconFile());
-          return new MissionDetailDto(mission, personalParticipationSize, totalParticipationSize,
-              iconUrl);
+          return new MissionDetailDto(mission, personalParticipationSize, totalParticipationSize, iconUrl);
         })
         .collect(Collectors.toList());
   }
@@ -199,6 +197,7 @@ public class MissionService {
   private long getPersonalParticipationSize(UUID memberId, List<Participation> totalParticipation) {
     return totalParticipation.stream()
         .filter(participation -> participation.getMember().getId().equals(memberId))
+        .filter(participation -> participation.getPerformDate().equals(LocalDate.now()))
         .count();
   }
 
@@ -228,5 +227,23 @@ public class MissionService {
 //      missionResult = new MissionResultInfoDto(mission.getRewardPoint(), member.getTotalPoint());
 //    }
 //    return missionResult;
+  }
+
+  public List<MissionDetailDto> findMissions(String kind, String difficulty, UUID memberId) {
+    if (difficulty == null) {
+      return findMissionsWithKind(kind, memberId);
+    }
+    return findMissionsWithKindAndDifficulty(kind, difficulty, memberId);
+  }
+
+  public MissionDto filterAvailable(List<MissionDetailDto> missions, boolean available) {
+    if (!available) {
+      return new MissionDto(missions);
+    }
+
+    List<MissionDetailDto> filteredMissions = missions.stream()
+        .filter(mission -> mission.getPersonalCount() - mission.getPersonalParticipatingCount() > 0)
+        .collect(Collectors.toList());
+    return new MissionDto(filteredMissions);
   }
 }
