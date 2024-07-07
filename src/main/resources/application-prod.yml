@@ -66,6 +66,11 @@ oauth2:
     clientId: dd6c51dc02204dacd84d70e52a877d8f
     secretKey: ${SECRET_KEY}
 
+chat:
+  solar:
+    chatUrl: https://api.upstage.ai/v1/solar/chat/completions
+    secretKey: ${UPSTAGE_API_KEY}
+
 ai:
   modelUrl: ${AI_URL}
   missionUrl: ${AI_MISSION_URL}

@@ -1,7 +1,6 @@
 package com.sesacthon.infra.feign.service;
 
 import com.sesacthon.infra.feign.client.kakao.KakaoInfoClient;
-import com.sesacthon.infra.feign.client.kakao.KakaoTokenClient;
 import com.sesacthon.infra.feign.dto.KakaoInfo;
 import com.sesacthon.infra.feign.dto.response.KakaoUserInfoResponseDto;
 import com.sesacthon.infra.feign.dto.response.KakaoUserUnlinkResponseDto;
