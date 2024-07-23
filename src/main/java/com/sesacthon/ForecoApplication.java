@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableJpaRepositories(basePackages = "com.sesacthon.foreco")
 @EnableJpaAuditing
-@OpenAPIDefinition(servers = {@Server(url = "https://ibajee.n-e.kr", description = "Default Server URL"),
+@OpenAPIDefinition(servers = {@Server(url = "https://foreco-wiz.site/", description = "Default Server URL"),
                               @Server(url = "http://localhost:8080", description = "Generated Server URL")})
 public class ForecoApplication {
 
@@ -30,7 +30,7 @@ public class ForecoApplication {
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedOrigins(
-                "https://ibajee.n-e.kr")
+                "https://foreco-wiz.site/")
             .allowedMethods(
                 HttpMethod.GET.name(),
                 HttpMethod.PATCH.name(),
