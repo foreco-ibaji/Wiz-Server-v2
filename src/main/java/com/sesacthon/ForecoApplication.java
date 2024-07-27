@@ -30,8 +30,8 @@ public class ForecoApplication {
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedOrigins(
-                "https://foreco-wiz.site/",
-                "https://foreco-wiz.firebaseapp.com/")
+                "https://foreco-wiz.site",
+                "https://foreco-wiz.firebaseapp.com")
             .allowedMethods("*");
       }
     };
