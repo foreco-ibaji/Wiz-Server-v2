@@ -36,6 +36,7 @@ public class SecurityConfig {
             session.sessionCreationPolicy(STATELESS))
         .authorizeHttpRequests(authorize ->
             authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                     .requestMatchers(HttpMethod.POST, "/api/v1/search/ai").permitAll()
                      .requestMatchers(HttpMethod.GET, "/api/v1/member").authenticated()
                      .requestMatchers("/**").permitAll())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
