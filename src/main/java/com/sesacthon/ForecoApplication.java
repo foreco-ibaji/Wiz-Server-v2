@@ -31,11 +31,7 @@ public class ForecoApplication {
         registry.addMapping("/**")
             .allowedOrigins(
                 "https://foreco-wiz.site/")
-            .allowedMethods(
-                HttpMethod.GET.name(),
-                HttpMethod.PATCH.name(),
-                HttpMethod.DELETE.name(),
-                HttpMethod.POST.name());
+            .allowedMethods("*");
       }
     };
   }
