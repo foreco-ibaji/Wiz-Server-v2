@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -32,7 +35,8 @@ public class SecurityConfig {
         .sessionManagement(session ->
             session.sessionCreationPolicy(STATELESS))
         .authorizeHttpRequests(authorize ->
-            authorize.requestMatchers(HttpMethod.GET, "/api/v1/member").authenticated()
+            authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                     .requestMatchers(HttpMethod.GET, "/api/v1/member").authenticated()
                      .requestMatchers("/**").permitAll())
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .addFilterBefore(jwtExceptionFilter, JwtAuthenticationFilter.class);
