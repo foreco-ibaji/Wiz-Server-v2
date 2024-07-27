@@ -31,7 +31,8 @@ public class ForecoApplication {
         registry.addMapping("/**")
             .allowedOrigins(
                 "https://foreco-wiz.firebaseapp.com")
-            .allowedMethods("*");
+            .allowedMethods("*")
+            .allowedHeaders("*");
       }
     };
   }
