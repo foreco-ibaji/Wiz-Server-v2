@@ -10,10 +10,8 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties(prefix = "chat.solar")
+@ConfigurationProperties(prefix = "chat.ai")
 public class ChatInfo {
-
-    private String chatUrl;
-    private String secretKey;
+    private String url;
 
 }

@@ -50,7 +50,7 @@ public class SearchController {
     public ResponseEntity<DataResponse<ChatResponseDto>> getChatMessage(@RequestBody ChatSearchRequestDto searchRequest) throws IOException {
         ChatResponseDto chatResponse;
         try {
-            chatResponse = chatSearchService.getChatResponse(searchRequest.getSearchMessage());
+            chatResponse = chatSearchService.getChatResponse(searchRequest);
         } catch (Exception e) {
             return new ResponseEntity<>(DataResponse.of(HttpStatus.SERVICE_UNAVAILABLE, "관리자에게 문의 주세요.", null), HttpStatus.SERVICE_UNAVAILABLE);
         }

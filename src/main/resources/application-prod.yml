@@ -67,9 +67,8 @@ oauth2:
     secretKey: ${SECRET_KEY}
 
 chat:
-  solar:
-    chatUrl: https://api.upstage.ai/v1/solar/chat/completions
-    secretKey: ${UPSTAGE_API_KEY}
+  ai:
+    url: ${AI_CHAT_URL}
 
 ai:
   modelUrl: ${AI_URL}

@@ -2,9 +2,6 @@ package com.sesacthon.foreco.search.dto.request;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sesacthon.foreco.search.dto.Message;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,17 +13,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ChatRequestDto {
 
-    private final String model = "solar-1-mini-chat";
-    private List<Message> messages;
-    private final boolean stream = false;
+    private String query;
+    private String region;
 
-    public static ChatRequestDto newInstance(String message) {
-        List<Message> messages = new ArrayList<>();
-        messages.add(new Message("system", "You are a helpful assistant."));
-        messages.add(new Message("user", message));
-
+    public static ChatRequestDto newInstance(ChatSearchRequestDto request) {
         return ChatRequestDto.builder()
-            .messages(messages)
+            .query(request.getSearchMessage())
+            .region(request.getRegion())
             .build();
     }
 
@@ -39,24 +32,4 @@ public class ChatRequestDto {
             return null;
         }
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\n");
-        sb.append("\"model\": \"").append(model).append("\",\n");
-        sb.append("\"messages\": [\n");
-        for (Message message : messages) {
-            sb.append(message.toString()).append(",\n");
-        }
-        if (!messages.isEmpty()) {
-            sb.setLength(sb.length() - 2); // 마지막 쉼표 제거
-            sb.append("\n");
-        }
-        sb.append("],\n");
-        sb.append("\"stream\": ").append(stream).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
 }
