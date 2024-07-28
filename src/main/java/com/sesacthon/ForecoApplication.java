@@ -31,7 +31,8 @@ public class ForecoApplication {
         registry.addMapping("/**")
             .allowedOrigins(
                 "http://localhost:50065",
-                "https://foreco-wiz.firebaseapp.com")
+                "https://foreco-wiz.firebaseapp.com",
+                "https://foreco-wiz.web.app")
             .allowedMethods("*")
             .allowedHeaders("*");
       }
