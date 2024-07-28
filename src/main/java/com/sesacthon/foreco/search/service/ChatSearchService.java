@@ -1,10 +1,9 @@
 package com.sesacthon.foreco.search.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sesacthon.foreco.search.config.ChatInfo;
 import com.sesacthon.foreco.search.dto.request.ChatRequestDto;
+import com.sesacthon.foreco.search.dto.request.ChatSearchRequestDto;
 import com.sesacthon.foreco.search.dto.response.ChatResponseDto;
-import com.sesacthon.foreco.search.dto.response.UpstageResponseDto;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import okhttp3.Request;
@@ -20,23 +19,19 @@ public class ChatSearchService {
 
     private final ChatInfo chatInfo;
 
-    public ChatResponseDto getChatResponse(String searchMessage) throws IOException {
+    public ChatResponseDto getChatResponse(ChatSearchRequestDto searchMessage) throws IOException {
         OkHttpClient client = new OkHttpClient();
-        String chatRequest = ChatRequestDto.newInstance(searchMessage).toString();
+        String chatRequest = ChatRequestDto.newInstance(searchMessage).toJson();
 
-        String authorization = "Bearer " + chatInfo.getSecretKey();
         Request request = new Request.Builder()
-            .addHeader("Authorization", authorization)
             .addHeader("Content-Type", "application/json")
             .post(RequestBody.create(chatRequest.getBytes()))
-            .url(chatInfo.getChatUrl())
+            .url(chatInfo.getUrl())
             .build();
 
         try (Response response = client.newCall(request).execute()) {
-            String jsonString = response.body().string();
-            ObjectMapper objectMapper = new ObjectMapper();
-            UpstageResponseDto chatResponse = objectMapper.readValue(jsonString, UpstageResponseDto.class);
-            return new ChatResponseDto(chatResponse);
+            String responseString = response.body().string();
+            return new ChatResponseDto(responseString);
         } catch (IOException e) {
             throw e;
         }

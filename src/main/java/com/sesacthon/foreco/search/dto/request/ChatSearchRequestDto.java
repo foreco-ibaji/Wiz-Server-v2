@@ -9,4 +9,7 @@ import lombok.NoArgsConstructor;
 public class ChatSearchRequestDto {
     @Schema(description = "사용자의 AI 검색 메시지")
     private String searchMessage;
+
+    @Schema(description = "사용자의 지역")
+    private String region;
 }

@@ -1,16 +1,15 @@
 package com.sesacthon.foreco.search.dto.response;
 
+import java.util.UUID;
 import lombok.Getter;
 
 @Getter
 public class ChatResponseDto {
     private final String id;
     private final String message;
-    private final Long created;
 
-    public ChatResponseDto(UpstageResponseDto aiResponse) {
-        this.id = aiResponse.getId();
-        this.message = aiResponse.getChoices().get(0).getMessage().getContent();
-        this.created = aiResponse.getCreated();
+    public ChatResponseDto(String chatMessage) {
+        this.id = UUID.randomUUID().toString();
+        this.message = chatMessage;
     }
 }
