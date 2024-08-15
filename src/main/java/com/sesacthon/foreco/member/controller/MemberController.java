@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,18 +31,6 @@ public class MemberController {
   private final KakaoFeignService kakaoFeignService;
   private final MemberSignUpService memberSignUpService;
   private final MemberInfoService memberInfoService;
-
-  /**
-   * 로그인 요청을 통해 인가코드를 redirect url로 발급 가능
-   */
-  @Operation(
-      summary = "인가 코드 발급",
-      description = "해당 url을 통해 로그인 화면으로 넘어간 후, 사용자가 정보를 입력하면 redirect url에서 코드를 발급할 수 있습니다.")
-  @GetMapping("/api/v1/kakao/login")
-  public ResponseEntity<HttpHeaders> getKakaoAuthCode(@RequestParam("redirectUri") String redirectUri)  {
-    HttpHeaders httpHeaders = kakaoFeignService.kakaoLogin(redirectUri);
-    return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
-  }
 
   @Operation(
       summary = "카카오 계정 회원가입",

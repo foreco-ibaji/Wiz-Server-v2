@@ -133,4 +133,14 @@ public class JwtTokenProvider {
   public void saveRefreshTokenInRedis(Member member, String refreshToken) {
     refreshTokenRepository.save(new RefreshToken(member.getId(), refreshToken));
   }
+
+  // 만료된 시간이 언제인지 알려주는 메서드
+  public Date getExpirationDate(String token) {
+    return Jwts.parser()
+        .setSigningKey(key)
+        .parseClaimsJws(token)
+        .getBody()
+        .getExpiration();
+  }
+
 }
