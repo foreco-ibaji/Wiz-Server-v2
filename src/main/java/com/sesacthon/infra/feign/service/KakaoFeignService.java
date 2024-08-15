@@ -17,23 +17,6 @@ import org.springframework.stereotype.Service;
 public class KakaoFeignService {
 
   private final KakaoInfoClient kakaoInfoClient;
-  private final KakaoInfo kakaoInfo;
-
-  public HttpHeaders kakaoLogin(String redirectUri){
-    return createHttpHeader(kakaoInfo.kakaoUrlInit(redirectUri));
-  }
-
-  private static HttpHeaders createHttpHeader(String requestUrl) {
-    try {
-      URI uri = new URI(requestUrl);
-      HttpHeaders httpHeaders = new HttpHeaders();
-      httpHeaders.setLocation(uri);
-      return httpHeaders;
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
 
   /**
    * 카카오 액세스 토큰으로 유저 정보를 요청합니다.

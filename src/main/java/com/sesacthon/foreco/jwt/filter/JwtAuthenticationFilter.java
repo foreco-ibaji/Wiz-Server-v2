@@ -34,6 +34,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
       FilterChain filterChain) throws ServletException, IOException {
+    // 특정 엔드포인트에 대해 JWT 검증을 건너뜀
+    if ("/api/v1/account/kakao/result".equals(request.getRequestURI())) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+
     //사용자의 요청 헤더에서 Authorization 값을 가져온다.
     String header = request.getHeader(AUTHORIZATION);
 
