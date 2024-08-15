@@ -23,10 +23,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final JwtTokenProvider jwtTokenProvider;
   /**
    * 1. request header 에서 Authorization 값을 가져온다.
-   *
    * 1-1. Authorization 값이 없다면? 사용자가 처음 요청
    * accessToken 발급 / 해당 유저를 저장한 후에 UUID를 발급하여 응답한다.
-   *
    * 1-2. Authorization 값이 있다면? 유효성 검증
    * 토큰이 올바른지와 만료됐는지 검증한다.
    * 유효성 검증에서 실패하면 정의한 예외 처리를 해준다.
@@ -48,8 +46,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       SecurityContextHolder.getContext().setAuthentication(authentication);
       log.info("SecurityContextHolder 에 Authentication 객체를 저장했습니다. 인증 완료 {}",
           authentication.getName());
+    } else {
+      throw new IOException("유효하지 않은 Authorization 헤더입니다.");
     }
-
     filterChain.doFilter(request, response);
   }
 
