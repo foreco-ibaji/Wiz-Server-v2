@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.sesacthon.foreco.jwt.service.JwtTokenProvider;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +41,7 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void testDoFilterInternal_Authorization_is_NULL() throws Exception {
+    void testDoFilterInternal_토큰_형식이_잘못된_경우() throws Exception {
         // given
         request.setMethod("GET");
         request.setRequestURI("/api/v1/member");
@@ -54,7 +55,26 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void testDoFilterInternal_Authorization_is_normal() throws Exception {
+    void testDoFilterInternal_만료된_토큰인_경우() throws Exception {
+        // given
+        request.setMethod("GET");
+        request.setRequestURI("/api/v1/member");
+
+        String expiredToken = "Bearer " + "expired-token"; // 임의의 테스트 토큰
+        request.addHeader("Authorization", expiredToken);
+
+        Authentication mockAuthentication = mock(Authentication.class);
+        when(jwtTokenProvider.getAuthentication("expired-token"))
+            .thenThrow(new ExpiredJwtException(null, null, "만료된 토큰입니다."));
+
+        // when, then
+        assertThrows(SecurityException.class, () -> {
+            jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+        });
+    }
+
+    @Test
+    void testDoFilterInternal_Authorization_정상적인_토큰인_경우() throws Exception {
         // given
         request.setMethod("GET");
         request.setRequestURI("/api/v1/member");

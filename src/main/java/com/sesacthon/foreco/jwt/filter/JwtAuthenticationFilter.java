@@ -3,11 +3,13 @@ package com.sesacthon.foreco.jwt.filter;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import com.sesacthon.foreco.jwt.service.JwtTokenProvider;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -38,14 +40,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     if(validateHeader(header)) {
       // 헤더에서 JWT를 받아온다.
       String accessToken = header.substring(7);
+      try {
+        log.info("accessToken: {} 으로 Authentication 객체를 찾습니다.", accessToken);
+        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
 
-      log.info("accessToken: {} 으로 Authentication 객체를 찾습니다.", accessToken);
-      Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+        //SecurityContext에 Authentication 객체를 저장한다.
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        log.info("SecurityContextHolder 에 Authentication 객체를 저장했습니다. 인증 완료 {}",
+            authentication.getName());
+      } catch (ExpiredJwtException e) {
 
-      //SecurityContext에 Authentication 객체를 저장한다.
-      SecurityContextHolder.getContext().setAuthentication(authentication);
-      log.info("SecurityContextHolder 에 Authentication 객체를 저장했습니다. 인증 완료 {}",
-          authentication.getName());
+        String errMsg = "JWT 토큰이 만료되었습니다." + jwtTokenProvider.getExpirationDate(accessToken);
+        throw new SecurityException(errMsg, e);
+      }
     } else {
       throw new IOException("유효하지 않은 Authorization 헤더입니다.");
     }
