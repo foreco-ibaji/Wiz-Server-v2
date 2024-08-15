@@ -55,14 +55,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.info("SecurityContextHolder 에 Authentication 객체를 저장했습니다. 인증 완료 {}",
             authentication.getName());
       } catch (ExpiredJwtException e) {
-
         String errMsg = "JWT 토큰이 만료되었습니다." + jwtTokenProvider.getExpirationDate(accessToken);
         throw new SecurityException(errMsg, e);
       }
-    } else {
-      throw new IOException("유효하지 않은 Authorization 헤더입니다.");
     }
-    filterChain.doFilter(request, response);
+      filterChain.doFilter(request, response);
   }
 
   /**
