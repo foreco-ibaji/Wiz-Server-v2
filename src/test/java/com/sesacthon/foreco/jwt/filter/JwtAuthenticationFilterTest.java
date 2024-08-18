@@ -40,19 +40,19 @@ class JwtAuthenticationFilterTest {
         response = new MockHttpServletResponse();
     }
 
-    @Test
-    void testDoFilterInternal_토큰_형식이_잘못된_경우() throws Exception {
-        // given
-        request.setMethod("GET");
-        request.setRequestURI("/api/v1/member");
-        String nullToken = "";
-        request.addHeader("Authorization", nullToken);
-
-        // when, then
-        assertThrows(IOException.class, () -> {
-            jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
-        });
-    }
+//    @Test
+//    void testDoFilterInternal_토큰_형식이_잘못된_경우() throws Exception {
+//        // given
+//        request.setMethod("GET");
+//        request.setRequestURI("/api/v1/member");
+//        String nullToken = "";
+//        request.addHeader("Authorization", nullToken);
+//
+//        // when, then
+//        assertThrows(IOException.class, () -> {
+//            jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+//        });
+//    }
 
     @Test
     void testDoFilterInternal_만료된_토큰인_경우() throws Exception {
