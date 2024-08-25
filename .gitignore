@@ -5,12 +5,10 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-src/main/resources/application-dev.yml
+src/main/resources/application-dev1.yml
+src/main/resources/application-dev2.yml
 src/main/generated
 .env
-./mysql-data
-nginx/certificates/*.pem
-nginx/conf.d/nginx.conf
 
 ### STS ###
 .apt_generated
